@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><?import com.jfoenix.controls.JFXButton?> <?import javafx.geometry.Insets?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.StackPane?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?> 
+
+<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="199.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;"> 
+    <children> 
+        <ImageView fitHeight="58.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true"> 
+            <image> 
+                <Image url="images/4x/userIcon.png" /> 
+            </image> 
+        </ImageView> 
+        <VBox prefHeight="50.0" prefWidth="582.0"> 
+            <HBox.margin> 
+                <Insets bottom="5.0" left="25.0" top="5.0" /> 
+            </HBox.margin> 
+            <children> 
+                <Label prefHeight="31.0" prefWidth="581.0" text="Tesse brunel" textFill="#1e1e1e"> 
+                    <font> 
+                        <Font name="Century Gothic Bold" size="24.0" /> 
+                    </font> 
+                </Label> 
+                <Label layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="578.0" text="Ingenieurie des systemes numeriques" textFill="#595959"> 
+                    <font> 
+                        <Font name="Century Gothic" size="15.0" /> 
+                    </font> 
+                </Label> 
+            </children> 
+        </VBox> 
+        <JFXButton  contentDisplay="RIGHT" prefHeight="42.0" prefWidth="212.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;" text="Borow" textFill="WHITE"> 
+            <graphic> 
+                <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="2.0"> 
+                    <image> 
+                        <Image url="images/4x/borrow_sign.png" /> 
+                    </image> 
+                </ImageView> 
+            </graphic> 
+            <font> 
+                <Font name="Century Gothic Bold" size="21.0" /> 
+            </font> 
+         
+        </JFXButton> 
+    </children> 
+    <VBox.margin> 
+        <Insets bottom="10.0" /> 
+    </VBox.margin> 
+  
+</HBox>

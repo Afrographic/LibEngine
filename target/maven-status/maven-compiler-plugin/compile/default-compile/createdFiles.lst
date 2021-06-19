@@ -1,0 +1,11 @@
+com\mycompany\libengine\App.class
+com\mycompany\libengine\PrimaryController.class
+com\mycompany\libengine\ItemRegistrationStartUp.class
+com\mycompany\libengine\ItemRegistrationController.class
+module-info.class
+com\mycompany\libengine\HomePageController.class
+database\DB.class
+com\mycompany\libengine\SecondaryController.class
+com\mycompany\libengine\StudentRegistrationStartUpController.class
+com\mycompany\libengine\StudentsRegistrationController.class
+com\mycompany\libengine\NameLogoController.class

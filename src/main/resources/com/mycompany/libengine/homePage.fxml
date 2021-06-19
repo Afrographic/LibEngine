@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="parent" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.HomePageController">
+   <children>
+      <Label fx:id="libItemID" text="0" />
+      <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
+         <children>
+            <VBox prefHeight="770.0" prefWidth="1367.0" style="-fx-padding: 15px;">
+               <children>
+                  <HBox prefHeight="39.0" prefWidth="1337.0">
+                     <children>
+                        <ImageView fitHeight="39.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/4x/Logo.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="726.0" style="-fx-background-radius: 8px; -fx-background-color: #eee; -fx-padding: 5px;">
+                           <HBox.margin>
+                              <Insets left="165.0" />
+                           </HBox.margin>
+                           <children>
+                              <TextField prefHeight="23.0" prefWidth="670.0" promptText="Search an Item..." style="-fx-background-color: transparenmt;">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fitHeight="24.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/search.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="156.0" style="-fx-background-color: #6534AC; -fx-background-radius: 5px;">
+                           <children>
+                              <Label text="UIECC - ESIGN" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <Pane prefHeight="56.0" prefWidth="63.0">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fitHeight="42.0" fitWidth="51.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/Logo%20UIECC.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="698.0" prefWidth="1337.0">
+                     <children>
+                        <VBox prefHeight="662.0" prefWidth="258.0" translateX="-40.0">
+                           <children>
+                              <JFXButton fx:id="showBooksBtn" contentDisplay="RIGHT" onAction="#showBooks" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #EBE4F4; -fx-background-radius: 45px;" text="Books" textFill="#6534ac">
+                                 <graphic>
+                                    <ImageView fx:id="bookIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-80.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/book_active.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <JFXButton fx:id="showRDBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" onAction="#showRD" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Research Documents" textFill="#4d4d4d">
+                                 <graphic>
+                                    <ImageView fx:id="docIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-170.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/docs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="-65.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <JFXButton fx:id="showCDBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showCD" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="CD" textFill="#4d4d4d">
+                                 <graphic>
+                                    <ImageView fx:id="cdIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-65.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/cd.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="40.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <VBox alignment="BOTTOM_LEFT" prefHeight="170.0" prefWidth="258.0">
+                                 <children>
+                                    <JFXButton fx:id="registerStudBtn" contentDisplay="RIGHT" onAction="#showRegisterStudScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Students" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="registerStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/author_item.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets right="-45.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <JFXButton fx:id="registerItemsBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" onAction="#showRegisterItemScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Items" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="registerItemIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-125.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/name_item.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets right="-25.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <JFXButton fx:id="lendBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showLendingScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Lending" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="manageStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-90.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/admin.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="400.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <GridPane fx:id="templateRenderer" hgap="10.0" prefHeight="662.0" prefWidth="1044.0" vgap="10.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.4000244140625" minWidth="10.0" prefWidth="320.199951171875" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.4000244140625" minWidth="10.0" prefWidth="341.60003662109375" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.39996337890625" minWidth="10.0" prefWidth="349.39996337890625" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fitHeight="32.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/prev.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                    <Label text="1 / 2">
+                                       <HBox.margin>
+                                          <Insets left="25.0" right="25.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="511.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/next.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <HBox fx:id="overflowPane" StackPane.alignment="CENTER">
+         <children>
+            <Pane opacity="0.67" prefHeight="779.0" prefWidth="1381.0" style="-fx-background-color: #fff;" />
+         </children>
+      </HBox>
+      <VBox fx:id="borrowItemView" alignment="CENTER" prefHeight="779.0" prefWidth="1378.0">
+         <children>
+            <VBox fx:id="parentSnackBar" maxWidth="-Infinity" prefHeight="571.0" prefWidth="967.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="878.0">
+                     <children>
+                        <ImageView fx:id="bItemIcon" fitHeight="67.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/4x/cd_active.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="bItemTitle" prefHeight="130.0" prefWidth="246.0" text="Comprendre l'anglais en 10 jours" textFill="#333333" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="235.0">
+                           <children>
+                              <Label text="Author" textFill="#333333">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="bItemAuthor" prefHeight="23.0" prefWidth="234.0" text="Prof. Ngoufack jean Martin" wrapText="true">
+                                 <font>
+                                    <Font name="Century Gothic" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="45.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="199.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="60.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label text="Stock" textFill="#282828">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: #828484; -fx-background-radius: 45px;">
+                                 <children>
+                                    <Label fx:id="bitemStock" text="100" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic Bold" size="16.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="25.0" top="5.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="45.0" right="45.0" top="25.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="967.0" style="-fx-background-color: #EBE4F4;">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/4x/bookLocation.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="bItemLocation" text="Row 1 - Column 2" textFill="#6534ac">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="425.0" prefWidth="967.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="875.0">
+                           <children>
+                              <Label text="Lend to">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="50.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="344.0">
+                                 <children>
+                                    <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/later.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <Label prefHeight="31.0" prefWidth="93.0" text="Duration">
+                                       <font>
+                                          <Font name="Century Gothic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="duration" alignment="CENTER" prefHeight="43.0" prefWidth="150.0" promptText="Input the duration here..." style="-fx-background-color: transparent; -fx-border-color: #777; -fx-border-radius: 13px;">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label text="Days">
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="305.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="51.0" prefWidth="879.0" style="-fx-background-radius: 8px; -fx-background-color: #eee; -fx-padding: 5px;">
+                           <children>
+                              <TextField fx:id="searchUserInput" onKeyReleased="#searchStudent" prefHeight="42.0" prefWidth="830.0" promptText="Search a student..." style="-fx-background-color: transparenmt;">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fx:id="searchTriggerButton" fitHeight="24.0" fitWidth="18.0" onMouseClicked="#searchStudent" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/search.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox fx:id="resultSearchContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/searchIllus.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="34.0" prefWidth="211.0" style="-fx-text-alignment: center;" text="Type some chars belonging to the user fullName to search for him" wrapText="true">
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="45.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <effect>
+                  <DropShadow height="177.09" radius="88.94" width="180.67">
+                     <color>
+                        <Color opacity="0.22413794696331024" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+         </children>
+      </VBox>
+      <ImageView fx:id="closeBorrowViewBtn" fitHeight="45.0" fitWidth="54.0" onMouseClicked="#closeBorrowView" pickOnBounds="true" preserveRatio="true" translateX="520.0" translateY="-280.0">
+         <image>
+            <Image url="@../../../images/4x/close.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</StackPane>
