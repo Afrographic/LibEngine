@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.LendingController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.PenaltyController">
    <children>
       <VBox layoutX="-5.0" layoutY="-2.0" prefHeight="775.0" prefWidth="1366.0">
          <children>
@@ -28,7 +28,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Students management">
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Lending  management">
                      <HBox.margin>
                         <Insets left="45.0" />
                      </HBox.margin>
@@ -53,7 +53,7 @@
             </Separator>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1366.0">
                <children>
-                  <JFXButton prefHeight="46.0" prefWidth="105.0" style="-fx-background-radius: 0px; -fx-background-color: #F4F4F4;" text="Lending" textFill="#050505">
+                  <JFXButton onAction="#showLending" prefHeight="46.0" prefWidth="105.0" style="-fx-background-radius: 0px; -fx-background-color: #F4F4F4;" text="Lending" textFill="#050505">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

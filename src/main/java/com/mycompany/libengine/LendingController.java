@@ -10,21 +10,32 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Model.Lending;
+import Model.LibItem;
+import Model.Student;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,6 +55,13 @@ public class LendingController implements Initializable {
     private Label totalBorrowUI;
     @FXML
     private VBox borrowesItemContainer;
+    @FXML
+    private TextField searchLendUI;
+
+    ArrayList<Lending> lendings = new ArrayList<Lending>();
+
+    // create a alert
+    Alert a = new Alert(Alert.AlertType.WARNING);
 
     /**
      * Initializes the controller class.
@@ -55,7 +73,11 @@ public class LendingController implements Initializable {
 
         //Get total lending...
         getTotalBorrow();
-        getTemplate();
+
+        //generateTemplate
+        sql = "select * from student ,libraryitem,itemstostudent,department where itemstostudent.idStudent = student.idStudent and itemstostudent.idLibItem = libraryitem.idLibItem and department.idDepart = student.idDepart order by idBorrow ASC";
+        getTemplate(sql);
+
     }
 
     public void getTotalBorrow() {
@@ -77,21 +99,47 @@ public class LendingController implements Initializable {
         }
     }
 
-    public void getTemplate() {
+    public void getTemplate(String sqlParam) {
         borrowesItemContainer.getChildren().clear();
-        sql = "select * from student ,libraryitem,itemstostudent,department where itemstostudent.idStudent = student.idStudent and itemstostudent.idLibItem = libraryitem.idLibItem and department.idDepart = student.idDepart order by idBorrow ASC";
+
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery(sqlParam);
             int i = 0;
             while (rs.next()) {
+                // Information about lending
                 int idBorrow = rs.getInt("idBorrow");
-                String lender = rs.getString("fullName");
-                String departmentLender = rs.getString("department");
                 String lendDate = rs.getString("dateBorrow");
+                
+                // Information about the library
+                int idLibItem = rs.getInt("idLibItem");         
                 String itemType = rs.getString("itemType");
                 String itemName = rs.getString("itemName");
+                String itemAuthor = rs.getString("author");
+                int stock = rs.getInt("stock");       
                 String itemIcon = "images/4x/book_active.png";
+                String position =  rs.getString("position");
+                
+                // information about the borrower
+                String lender = rs.getString("fullName");
+                int idStud = rs.getInt("idStudent");
+                String departmentLender = rs.getString("department");
+                String tel = rs.getString("department");
+                String email = rs.getString("department");
+                String sexe = "M";
+                String matricule = "MG144714";
+
+                // Storing data inside the object
+                if( idBorrow>0){
+                    Student student = new Student(idStud,lender,tel,email,departmentLender);
+                    LibItem libItem = new LibItem(idLibItem,itemIcon,itemName,itemAuthor,stock,position);
+                    Lending lending = new Lending(idBorrow, lendDate, libItem, student);
+                    lendings.add(lending);
+
+                    // incrementing for the next insertion
+                    i++;
+                }
+                
 
                 if (null != itemType) {
                     switch (itemType) {
@@ -109,8 +157,6 @@ public class LendingController implements Initializable {
                     }
                 }
 
-                System.out.println(itemType);
-                System.out.println(itemIcon);
 
                 //template rendering
                 if (idBorrow > 0) {
@@ -127,23 +173,32 @@ public class LendingController implements Initializable {
 
                         layout.setCursor(Cursor.HAND);
 
+                        //getting the button
+                        Node givebackButton = layout.getChildren().get(layout.getChildren().size() - 1);
+
                         //Creating the mouse event handler
-//                        EventHandler<MouseEvent> borrowItem = new EventHandler<MouseEvent>() {
-//                            @Override
-//                            public void handle(MouseEvent e) {
-//                                // get the current date
-//                                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//                                LocalDateTime now = LocalDateTime.now();
-//                                System.out.println(dtf.format(now));
-//                                try {
-//                                    borrowItem(idStud, idLibItem, duration, dtf.format(now));
-//                                } catch (IOException ex) {
-//                                    Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
-//                                }
-//                            }
-//                        };
+                        EventHandler<MouseEvent> giveBackEvent = new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent e) {
+                                System.out.println("Remove this shit from here");
+                                giveItemBack(idLibItem, idBorrow);
+
+                                // Confirmation message
+                                // set alert type
+                                a.setAlertType(Alert.AlertType.INFORMATION);
+                                a.setContentText("Item was successfully returned back!");
+                                a.show();
+                                try {
+                                    App.setRoot("lending");
+                                } catch (IOException ex) {
+                                    System.out.println("Unable to reload page");
+                                    Logger.getLogger(LendingController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        };
                         //Registering the event filter
-                        //  layout.addEventFilter(MouseEvent.MOUSE_CLICKED, borrowItem);
+                        givebackButton.addEventFilter(MouseEvent.MOUSE_CLICKED, giveBackEvent);
+
 //                        Add seperator
                         Separator separator = new Separator();
                         borrowesItemContainer.getChildren().addAll(layout, separator);
@@ -161,9 +216,47 @@ public class LendingController implements Initializable {
         }
     }
 
+    public void giveItemBack(int idLibItem, int idBorrow) {
+        //delete the book from borrow
+        sql = "delete from itemstostudent where idBorrow = ?";
+        try {
+            PreparedStatement preparedStmt = con.prepareStatement(sql);
+            preparedStmt.setInt(1, idBorrow);
+            preparedStmt.execute();
+        } catch (SQLException e) {
+            System.out.println("Database error");
+        }
+
+        //increasing the stock of the book
+        sql = "update  libraryitem set stock = stock + 1 where idLibItem = " + idLibItem;
+        try {
+            Statement sta = con.createStatement();
+            int rs = sta.executeUpdate(sql);
+
+            System.out.println("Stock incremented");
+        } catch (SQLException e) {
+            System.out.println("Update stock error");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @FXML
     private void popScreen(MouseEvent event) throws IOException {
         App.setRoot("homePage");
+    }
+
+    @FXML
+    private void searchBorrowItem(KeyEvent event) {
+        if (searchLendUI.getText().length() >= 1) {
+            sql = "select * from student ,libraryitem,itemstostudent,department where itemstostudent.idStudent = student.idStudent and itemstostudent.idLibItem = libraryitem.idLibItem and department.idDepart = student.idDepart and libraryitem.itemName like '%" + searchLendUI.getText() + "%' order by idBorrow ASC";
+            getTemplate(sql);
+        }
+    }
+
+    @FXML
+    private void showPenalties(ActionEvent event) {
+        PenaltyController.launchPenaltyScreen(lendings);
     }
 
 }

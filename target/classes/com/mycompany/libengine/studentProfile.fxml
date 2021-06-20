@@ -107,6 +107,20 @@
                         </Label>
                      </children>
                   </VBox>
+                  <VBox alignment="CENTER_LEFT" layoutX="78.0" layoutY="10.0" prefHeight="90.0" prefWidth="176.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Sexe" textAlignment="CENTER">
+                           <font>
+                              <Font name="Century Gothic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="230.0" text="Masculin">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="10.0" prefHeight="90.0" prefWidth="198.0">
                      <children>
                         <Label prefHeight="30.0" prefWidth="118.0" text="Matricule" textAlignment="CENTER">
