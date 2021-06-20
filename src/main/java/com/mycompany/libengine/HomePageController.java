@@ -156,6 +156,8 @@ public class HomePageController implements Initializable {
         overflowPane.setStyle("-fx-translate-y:-800px");
         borrowItemView.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
         closeBorrowViewBtn.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
+
+       
     }
 
     @FXML

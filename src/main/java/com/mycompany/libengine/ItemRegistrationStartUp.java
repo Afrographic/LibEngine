@@ -34,6 +34,8 @@ public class ItemRegistrationStartUp implements Initializable {
     private void swithToStudentsRegistrationStartUp(ActionEvent event) throws IOException {
 
         App.setRoot("studentRegistrationStartUp");
+      
+
 
     }
 
@@ -42,6 +44,8 @@ public class ItemRegistrationStartUp implements Initializable {
     private void swithToItemRegistration(ActionEvent event) throws IOException {
 
         App.setRoot("itemRegistration");
+        
+
 
     }
 
