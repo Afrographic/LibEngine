@@ -66,7 +66,7 @@ public class SearchEngine {
             st.setInt(4, duration);
             st.execute();
 
-            HomePageController homePageController = new HomePageController();
+           // HomePageController homePageController = new HomePageController();
 
             // Confirmation message
             // set alert type
@@ -78,7 +78,7 @@ public class SearchEngine {
             sql = "update  libraryitem set stock = stock - 1 where idLibItem = " + idLibItem + " and stock > 0";
             try {
                 Statement sta = con.createStatement();
-                int rs = sta.executeUpdate(sql);
+                sta.executeUpdate(sql);
 
                 System.out.println("Stock decremented");
             } catch (SQLException e) {

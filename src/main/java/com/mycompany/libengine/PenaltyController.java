@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Model.Lending;
+import Model.LibItem;
+import Model.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,8 +39,8 @@ public class PenaltyController implements Initializable {
     String sql;
 
 //    End
-
     public static ArrayList<Lending> lendings = new ArrayList<Lending>();
+
     /**
      * Initializes the controller class.
      */
@@ -60,14 +62,15 @@ public class PenaltyController implements Initializable {
         elapsedDays(currentDate, lentDate);
     }
 
-    public static void launchPenaltyScreen(ArrayList<Lending> lendingsArg){
+    public static void launchPenaltyScreen(ArrayList<Lending> lendingsArg) {
         lendings = lendingsArg;
 
-        System.out.println("Length of the lending "+lendings.size());
+        System.out.println("Length of the lending " + lendings.size());
+        System.out.println("Length of the items per users "+sortingLendingByUser());
         try {
             App.setRoot("penalties");
         } catch (IOException e) {
-           
+
             e.printStackTrace();
         }
     }
@@ -84,7 +87,32 @@ public class PenaltyController implements Initializable {
     }
 
     void getPenalizeStud() {
-        sql = "select * from student ,libraryitem,itemstostudent,department where itemstostudent.idStudent = student.idStudent and itemstostudent.idLibItem = libraryitem.idLibItem and department.idDepart = student.idDepart order by idBorrow ASC";
+        //
+    }
+
+    public static ArrayList<LendingByUser> sortingLendingByUser() {
+        ArrayList<LendingByUser> lendingByUser = new ArrayList<LendingByUser>();
+
+        for (int i = 0; i < lendings.size(); i++) {
+            int idStudent = lendings.get(i).student.idStud;
+            ArrayList<LibItem> items = new ArrayList<LibItem>();
+
+            // Searching the lending of the particular and classify them
+            for (int j = 0; j < lendings.size(); j++) {
+                if (lendings.get(j).student.idStud == idStudent) {
+                    items.add(lendings.get(j).libItem);
+                    //remove the item
+                    lendings.remove(j);
+                }
+            }
+
+            //Appending the user with its corresponding items
+            Student student = lendings.get(i).student;
+            lendingByUser.add(new LendingByUser(student,items));
+
+        }
+
+        return lendingByUser;
     }
 
     @FXML
@@ -96,4 +124,15 @@ public class PenaltyController implements Initializable {
         }
     }
 
+}
+
+class LendingByUser {
+
+    public Student student;
+    public ArrayList<LibItem> items;
+
+    public LendingByUser(Student student, ArrayList<LibItem> items) {
+        this.student = student;
+        this.items = items;
+    }
 }
