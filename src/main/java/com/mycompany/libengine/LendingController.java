@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -58,6 +59,8 @@ public class LendingController implements Initializable {
     @FXML
     private TextField searchLendUI;
 
+    String currentDate;
+
     ArrayList<Lending> lendings = new ArrayList<Lending>();
 
     // create a alert
@@ -68,6 +71,11 @@ public class LendingController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         // get the current date
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+         LocalDateTime now = LocalDateTime.now();
+         String currentDated = dtf.format(now);
+         currentDate = currentDated.split(" ")[0];
         //initializing the database connection...
         con = db.getConnection();
 
@@ -77,6 +85,8 @@ public class LendingController implements Initializable {
         //generateTemplate
         sql = "select * from student ,libraryitem,itemstostudent,department where itemstostudent.idStudent = student.idStudent and itemstostudent.idLibItem = libraryitem.idLibItem and department.idDepart = student.idDepart order by idBorrow ASC";
         getTemplate(sql);
+
+        
 
     }
 
@@ -110,6 +120,7 @@ public class LendingController implements Initializable {
                 // Information about lending
                 int idBorrow = rs.getInt("idBorrow");
                 String lendDate = rs.getString("dateBorrow");
+                int duration = rs.getInt("duration");
                 
                 // Information about the library
                 int idLibItem = rs.getInt("idLibItem");         
@@ -124,16 +135,25 @@ public class LendingController implements Initializable {
                 String lender = rs.getString("fullName");
                 int idStud = rs.getInt("idStudent");
                 String departmentLender = rs.getString("department");
-                String tel = rs.getString("department");
-                String email = rs.getString("department");
+                String tel = rs.getString("tel");
+                String email = rs.getString("email");
                 String sexe = "M";
                 String matricule = "MG144714";
 
+                //computing elapsedDays
+                String lentDate = lendDate.split(" ")[0];
+                long elapseddays = PenaltyController.elapsedDays(currentDate, lentDate);
+
+                // computing return day
+                final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                final LocalDate firstDate = LocalDate.parse(lentDate, formatter);
+                LocalDate returnDate = firstDate.plusDays(duration);
+
                 // Storing data inside the object
                 if( idBorrow>0){
-                    Student student = new Student(idStud,lender,tel,email,departmentLender);
+                    Student student = new Student(idStud,lender,tel,email,departmentLender,sexe,matricule);
                     LibItem libItem = new LibItem(idLibItem,itemIcon,itemName,itemAuthor,stock,position);
-                    Lending lending = new Lending(idBorrow, lendDate, libItem, student);
+                    Lending lending = new Lending(idBorrow, lendDate, libItem, student,duration,returnDate.format(formatter),(elapseddays-duration));
                     lendings.add(lending);
 
                     // incrementing for the next insertion

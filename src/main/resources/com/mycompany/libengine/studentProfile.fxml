@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.LendingController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.StudentProfileController">
    <children>
       <VBox layoutX="-5.0" layoutY="-2.0" prefHeight="775.0" prefWidth="1366.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px;">
                <children>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#showPenaltyScreen" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/4x/back.png" />
                      </image>
@@ -41,12 +42,12 @@
                         </ImageView>
                         <VBox prefHeight="44.0" prefWidth="610.0">
                            <children>
-                              <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Tesse brunel">
+                              <Label fx:id="nameTitle" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Tesse brunel">
                                  <font>
                                     <Font name="Century Gothic Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Ingenieuie des systemes numeriques">
+                              <Label fx:id="departTitle" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Ingenieuie des systemes numeriques">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
@@ -58,7 +59,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" style="-fx-border-color: #F70000;" translateX="15.0">
+                  <HBox alignment="CENTER" style="-fx-border-color: #F70000; -fx-background-color: #f70000;" translateX="15.0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -70,8 +71,11 @@
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
-                        <Label text="Hold 04 items" textFill="#f70000">
+                        <Label fx:id="totalItems" text="Hold 04 items" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font>
@@ -83,24 +87,19 @@
                   </HBox>
                </children>
             </HBox>
-            <Separator prefWidth="200.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Separator>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="90.0" prefWidth="1388.0" style="-fx-background-color: #6534AC;">
                <padding>
                   <Insets left="45.0" right="45.0" />
                </padding>
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="264.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="208.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="118.0" text="Fullname" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Fullname" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="230.0" text="Tesse Brunel">
+                        <Label fx:id="fullName" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="230.0" text="Tesse Brunel" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -109,12 +108,12 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="78.0" layoutY="10.0" prefHeight="90.0" prefWidth="176.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="118.0" text="Sexe" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Sexe" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="230.0" text="Masculin">
+                        <Label fx:id="sex" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="230.0" text="Masculin" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -123,12 +122,12 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="10.0" prefHeight="90.0" prefWidth="198.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="118.0" text="Matricule" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Matricule" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="149.0" text="MGC145854">
+                        <Label fx:id="matricule" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="149.0" text="MGC145854" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -137,12 +136,12 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="334.0" layoutY="10.0" prefHeight="90.0" prefWidth="326.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="118.0" text="Department" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Department" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="296.0" text="Ingenieurie des systemes numeriques">
+                        <Label fx:id="department" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="296.0" text="Ingenieurie des systemes numeriques" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -151,26 +150,26 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="613.0" layoutY="10.0" prefHeight="90.0" prefWidth="194.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="168.0" text="Phone number" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="168.0" text="Phone number" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="118.0" text="678521478">
+                        <Label fx:id="phone" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="118.0" text="678521478" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="892.0" layoutY="10.0" prefHeight="90.0" prefWidth="248.0">
+                  <VBox alignment="CENTER_LEFT" layoutX="892.0" layoutY="10.0" prefHeight="83.0" prefWidth="204.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="118.0" text="Email" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="118.0" text="Email" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="276.0" text="bruneltesse@gmail.com">
+                        <Label fx:id="email" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="185.0" text="bruneltesse@gmail.com" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -182,7 +181,7 @@
             <Separator layoutX="10.0" layoutY="94.0" prefWidth="200.0" />
             <VBox prefHeight="72.0" prefWidth="1366.0">
                <children>
-                  <Label text="Tesse brunel hold 4 items">
+                  <Label fx:id="titleItemsHold" text="Tesse brunel hold 4 items">
                      <font>
                         <Font name="Century Gothic Bold" size="29.0" />
                      </font>
@@ -208,11 +207,12 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <content>
-                  <VBox>
+                  <VBox fx:id="itemsContainer">
                      <padding>
                         <Insets left="45.0" right="45.0" />
                      </padding>
                      <children>
+
                         <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1274.0">
                            <children>
                               <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
@@ -272,6 +272,7 @@
                               </ImageView>
                            </children>
                         </HBox>
+                        
                         <Separator prefWidth="200.0">
                            <VBox.margin>
                               <Insets top="8.0" />

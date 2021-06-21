@@ -15,12 +15,18 @@ public class Lending {
     public String lendDate ;
     public LibItem libItem;
     public Student student;
+    public int  duration;
+    public String returnDay;
+    public long delayDay;
 
 
-    public Lending(int idBorow,String lendDate,LibItem libItem, Student student) {
+    public Lending(int idBorow,String lendDate,LibItem libItem, Student student,int  duration,String returnDay,long delayDay) {
         this.idBorrow=idBorow;
         this.lendDate = lendDate;
         this.libItem = libItem;
         this.student = student;
+        this.duration = duration;
+        this.returnDay = returnDay;
+        this.delayDay = delayDay;
     }
 }

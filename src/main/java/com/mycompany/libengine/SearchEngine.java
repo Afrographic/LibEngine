@@ -116,6 +116,8 @@ public class SearchEngine {
                 String tel = rs.getString("tel");
                 String email = rs.getString("email");
                 String depart = rs.getString("department");
+                String sex = "Masculin";
+                String matricule = "BGNOSSJJS";
 
                 if (idStud > 0) {
 
@@ -156,7 +158,7 @@ public class SearchEngine {
                         Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    studentsFound[i] = new Student(idStud, fullName, tel, email, depart);
+                    studentsFound[i] = new Student(idStud, fullName, tel, email, depart,sex,matricule);
                     i++;
                 }
 

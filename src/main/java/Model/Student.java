@@ -16,18 +16,22 @@ public class Student {
     public String tel;
     public String email;
     public String depart;
+    public String sex;
+    public String matricule;
     
 
     public Student(int idStud, String fullname,
             String tel,
             String email,
-            String depart) {
+            String depart,String sex,String matricule) {
 
         this.idStud = idStud;
         this.tel = tel;
         this.fullname = fullname;
         this.email = email;
         this.depart = depart;
+        this.sex = sex;
+        this.matricule = matricule;
 
     }
 

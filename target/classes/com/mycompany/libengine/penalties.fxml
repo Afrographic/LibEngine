@@ -20,7 +20,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px;">
                <children>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#showHomePage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/4x/back.png" />
                      </image>
@@ -82,7 +82,7 @@
                <children>
                   <VBox prefHeight="72.0" prefWidth="1366.0">
                      <children>
-                        <Label text="14 students exceeded the time to return 20 items">
+                        <Label fx:id="titlePenalties" text="14 students exceeded the time to return 20 items">
                            <font>
                               <Font name="Century Gothic Bold" size="29.0" />
                            </font>
@@ -112,11 +112,12 @@
                   <Insets top="35.0" />
                </VBox.margin>
                <content>
-                  <VBox>
+                  <VBox fx:id="penaltiesContainer">
                      <padding>
                         <Insets left="45.0" right="45.0" />
                      </padding>
                      <children>
+                     
                         <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1274.0">
                            <children>
                               <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
@@ -169,6 +170,8 @@
                               </JFXButton>
                            </children>
                         </HBox>
+
+
                         <Separator prefWidth="200.0">
                            <VBox.margin>
                               <Insets top="8.0" />
