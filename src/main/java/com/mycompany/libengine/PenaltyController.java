@@ -107,6 +107,8 @@ public class PenaltyController implements Initializable {
         final LocalDate secondDate = LocalDate.parse(lentDate, formatter);
         final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
 
+        LocalDate tomorrow = firstDate.plusDays(1);
+
         //System.out.println("Days between: " + days);
         return days;
     }

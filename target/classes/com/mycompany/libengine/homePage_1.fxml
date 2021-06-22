@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="parent" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.HomePageController">
+   <children>
+      <Label fx:id="libItemID" text="0" />
+      <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
+         <children>
+            <VBox prefHeight="770.0" prefWidth="1367.0" style="-fx-padding: 15px;">
+               <children>
+                  <HBox prefHeight="39.0" prefWidth="1337.0">
+                     <children>
+                        <ImageView fitHeight="39.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/4x/Logo.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="726.0" style="-fx-background-radius: 8px; -fx-background-color: #eee; -fx-padding: 5px;">
+                           <HBox.margin>
+                              <Insets left="165.0" />
+                           </HBox.margin>
+                           <children>
+                              <TextField prefHeight="23.0" prefWidth="670.0" promptText="Search an Item..." style="-fx-background-color: transparenmt;">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fitHeight="24.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/search.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="156.0" style="-fx-background-color: #6534AC; -fx-background-radius: 5px;">
+                           <children>
+                              <Label text="UIECC - ESIGN" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <Pane prefHeight="56.0" prefWidth="63.0">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fitHeight="42.0" fitWidth="51.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/Logo%20UIECC.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="698.0" prefWidth="1337.0">
+                     <children>
+                        <VBox prefHeight="662.0" prefWidth="258.0" translateX="-40.0">
+                           <children>
+                              <JFXButton fx:id="showBooksBtn" contentDisplay="RIGHT" onAction="#showBooks" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #EBE4F4; -fx-background-radius: 45px;" text="Books" textFill="#6534ac">
+                                 <graphic>
+                                    <ImageView fx:id="bookIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-80.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/book_active.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <JFXButton fx:id="showRDBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" onAction="#showRD" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Research Documents" textFill="#4d4d4d">
+                                 <graphic>
+                                    <ImageView fx:id="docIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-170.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/docs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="-65.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <JFXButton fx:id="showCDBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showCD" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="CD" textFill="#4d4d4d">
+                                 <graphic>
+                                    <ImageView fx:id="cdIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-65.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/cd.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="40.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Century Gothic" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                              <VBox alignment="BOTTOM_LEFT" prefHeight="170.0" prefWidth="258.0">
+                                 <children>
+                                    <JFXButton fx:id="registerStudBtn" contentDisplay="RIGHT" onAction="#showRegisterStudScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Students" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="registerStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/author_item.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets right="-45.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <JFXButton fx:id="registerItemsBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" onAction="#showRegisterItemScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Items" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="registerItemIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-125.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/name_item.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets right="-25.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <JFXButton fx:id="lendBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showLendingScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Lending" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="manageStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-90.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/admin.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="400.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <GridPane fx:id="templateRenderer" hgap="5.0" prefHeight="663.0" prefWidth="1193.0" vgap="5.0" VBox.vgrow="NEVER">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.4000244140625" minWidth="10.0" prefWidth="250.2000732421875" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.4000244140625" minWidth="10.0" prefWidth="251.73345336914068" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.4000244140625" minWidth="10.0" prefWidth="237.0665466308593" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.39996337890625" minWidth="10.0" prefWidth="282.80000000000007" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                
+                                
+                                 <children>
+                                     
+                                    <VBox prefHeight="110.0" prefWidth="239.0" style="-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="239.0">
+                                             <children>
+                                                <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../images/4x/book_active.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label prefHeight="32.0" prefWidth="146.0" text="Javascript for beginner free ebbok booker" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <HBox alignment="CENTER" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                                   <HBox.margin>
+                                                      <Insets left="17.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Label text="10" textFill="WHITE" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <Separator opacity="0.38" prefWidth="200.0">
+                                             <VBox.margin>
+                                                <Insets top="8.0" />
+                                             </VBox.margin>
+                                          </Separator>
+                                          <HBox prefHeight="36.0" prefWidth="230.0">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label prefHeight="35.0" prefWidth="103.0" text="By Docteur Tonleu Danemark legrand" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="32.0" prefWidth="76.0" text="Edition 2021" textFill="#6534ac" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXButton prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #6534AC;" text="Lend" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="12.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="110.0" prefWidth="239.0" style="-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;" GridPane.columnIndex="1">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="239.0">
+                                             <children>
+                                                <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../images/4x/book_active.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label prefHeight="32.0" prefWidth="144.0" text="Javascript for beginner free ebbok booker" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <HBox alignment="CENTER" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                                   <HBox.margin>
+                                                      <Insets left="17.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Label text="100" textFill="WHITE" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <Separator opacity="0.38" prefWidth="200.0">
+                                             <VBox.margin>
+                                                <Insets top="8.0" />
+                                             </VBox.margin>
+                                          </Separator>
+                                          <HBox prefHeight="36.0" prefWidth="230.0">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label prefHeight="32.0" prefWidth="112.0" text="By Docteur Tonleu Danemark legrand" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="32.0" prefWidth="53.0" text="Edition 2021" textFill="#6534ac" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXButton prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #6534AC;" text="Lend" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="12.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="270.0" layoutY="10.0" prefHeight="110.0" prefWidth="239.0" style="-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;" GridPane.columnIndex="2">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="239.0">
+                                             <children>
+                                                <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../images/4x/book_active.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label prefHeight="32.0" prefWidth="144.0" text="Javascript for beginner free ebbok booker" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <HBox alignment="CENTER" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                                   <HBox.margin>
+                                                      <Insets left="17.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Label text="100" textFill="WHITE" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <Separator opacity="0.38" prefWidth="200.0">
+                                             <VBox.margin>
+                                                <Insets top="8.0" />
+                                             </VBox.margin>
+                                          </Separator>
+                                          <HBox prefHeight="36.0" prefWidth="230.0">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label prefHeight="32.0" prefWidth="109.0" text="By Docteur Tonleu Danemark legrand" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="32.0" prefWidth="52.0" text="Edition 2021" textFill="#6534ac" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXButton prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #6534AC;" text="Lend" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="12.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="104.0" prefWidth="266.0" style="-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;" GridPane.columnIndex="3">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="239.0">
+                                             <children>
+                                                <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../images/4x/book_active.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label prefHeight="31.0" prefWidth="170.0" text="Javascript for beginner free ebbok booker" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <HBox alignment="CENTER" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                                   <HBox.margin>
+                                                      <Insets left="17.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Label text="100" textFill="WHITE" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <Separator opacity="0.38" prefWidth="200.0">
+                                             <VBox.margin>
+                                                <Insets top="8.0" />
+                                             </VBox.margin>
+                                          </Separator>
+                                          <HBox prefHeight="36.0" prefWidth="230.0">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label prefHeight="32.0" prefWidth="157.0" text="By Docteur Tonleu Danemark legrand" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="32.0" prefWidth="51.0" text="Edition 2021" textFill="#6534ac" wrapText="true">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXButton prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #6534AC;" text="Lend" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Century Gothic Bold" size="12.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" translateY="8.0">
+                                 <children>
+                                    <ImageView fitHeight="32.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/prev.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                    <Label text="1 / 2">
+                                       <HBox.margin>
+                                          <Insets left="25.0" right="25.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="511.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/next.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

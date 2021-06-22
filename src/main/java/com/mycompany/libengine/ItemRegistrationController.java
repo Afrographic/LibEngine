@@ -157,8 +157,6 @@ public class ItemRegistrationController implements Initializable {
             a.setContentText("Please fill all the field");
             a.show();
         }
-
-//
     }
 
     @FXML

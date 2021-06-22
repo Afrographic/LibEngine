@@ -17,7 +17,6 @@ public class DB {
     // create a alert
     Alert a = new Alert(Alert.AlertType.WARNING);
 
-    String urldriver = "com.mysql.jdbc.Driver";
     String url = "jdbc:mysql://localhost:3306/libengine";
     Connection con;
 

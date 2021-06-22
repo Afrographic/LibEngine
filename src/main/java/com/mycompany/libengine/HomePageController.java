@@ -44,6 +44,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -131,6 +132,21 @@ public class HomePageController implements Initializable {
     @FXML
     private JFXButton lendBtn;
 
+    Coords[] coords = new Coords[24];
+
+    int durationVal = 14;
+    int offsetQuery = 0;
+
+    int totalBook;
+    int totalRD;
+    int totalCD;
+
+    String currentItemType;
+    @FXML
+    private Label totalItems;
+    @FXML
+    private TextField searchItemHome;
+
     /**
      * Initializes the controller class.
      *
@@ -139,16 +155,76 @@ public class HomePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // get the coordinates
+        int k = 0;
+        for (int i = 0; i <= 5; i++) {
+            for (int j = 0; j <= 3; j++) {
+                coords[k] = new Coords(i, j);
+                k++;
+            }
+        }
 
         //initializing the database connection
         con = db.getConnection();
 
         //show books at startUp
-        generateItems("Book", "images/4x/book_active.png");
+        sql = "select  * from libraryitem where itemType = 'Book' LIMIT 24 offset 0";
+        generateItems("Book", "images/4x/book_active.png", 0,sql);
 
 //        Hide the borrow book screen
         this.closeBorrowScreen();
+
+        //set the default duration
+        duration.setText("" + durationVal);
+
+        //compute the total amount of each items per categories
+        computeTotalItemsPerCategories();
+
+        //init total items to books and search promptText
+        currentItemType = "Book";
+        totalItems.setText(totalBook + " Books");
+        searchItemHome.setPromptText("Search a book...");
+
+    }
+
+    void computeTotalItemsPerCategories() {
+        //retrieve total books
+        sql = "select COUNT(idLibItem) as totalBooks from libraryitem where itemType = 'Book'";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                totalBook = rs.getInt("totalBooks");
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error");
+        }
+        //retrieve total Cds
+        sql = "select COUNT(idLibItem) as totalCDs from libraryitem where itemType = 'CD'";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                totalCD = rs.getInt("totalCDs");
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error");
+        }
+
+        //retrieve total research material
+        sql = "select COUNT(idLibItem) as totalRD from libraryitem where itemType = 'Research document'";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                totalRD = rs.getInt("totalRD");
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error");
+        }
     }
 
     public void closeBorrowScreen() {
@@ -157,7 +233,6 @@ public class HomePageController implements Initializable {
         borrowItemView.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
         closeBorrowViewBtn.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
 
-       
     }
 
     @FXML
@@ -184,23 +259,29 @@ public class HomePageController implements Initializable {
 
     void borrowItem(LibItem libItem) {
 
-        borrowItemView.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
-        closeBorrowViewBtn.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
-        overflowPane.setStyle("-fx-translate-y:0px");
+        if(libItem.stock > 0){
 
-        //        update the borrow screen
-        bItemIcon.setImage(new Image(libItem.itemIcon));
-        bItemAuthor.setText(libItem.itemAuthor);
-        bitemStock.setText("" + libItem.stock);
-        bItemLocation.setText(libItem.position);
-        bItemTitle.setText(libItem.itemName);
-        libItemID.setText("" + libItem.libItemId);
+            borrowItemView.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
+            closeBorrowViewBtn.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
+            overflowPane.setStyle("-fx-translate-y:0px");
+
+            //        update the borrow screen
+            bItemIcon.setImage(new Image(libItem.itemIcon));
+            bItemAuthor.setText(libItem.itemAuthor);
+            bitemStock.setText("" + libItem.stock);
+            bItemLocation.setText(libItem.position);
+            bItemTitle.setText(libItem.itemName);
+            libItemID.setText("" + libItem.libItemId);
+         }else{
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Sorry this item is out of stock!");
+            a.show();
+         }
     }
 
-    public void generateItems(String itemType, String itemIcon) {
+    public void generateItems(String itemType, String itemIcon, int offset, String sql) {
         //Clear GridPane
         templateRenderer.getChildren().clear();
-        sql = "select  * from libraryitem where itemType = '" + itemType + "' LIMIT 9";
 
         try {
 
@@ -214,17 +295,22 @@ public class HomePageController implements Initializable {
                 String position = rs.getString("position");
                 int stock = rs.getInt("stock");
                 int idLibItem = rs.getInt("idLibItem");
+                int edition = 2021;
 
                 String FXML_STRING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                        + "<?import com.jfoenix.controls.JFXButton?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?> <Pane prefHeight=\"244.0\" prefWidth=\"326.0\" style=\"-fx-border-color: #EEEEEE; -fx-border-width: 1px; -fx-border-radius: 12px;\"> <children> <VBox alignment=\"CENTER\" prefHeight=\"214.0\" prefWidth=\"326.0\"> <children> <HBox prefHeight=\"55.0\" prefWidth=\"326.0\"> <children> <ImageView fitHeight=\"41.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"46.0\" prefWidth=\"173.0\" text=\"" + itemName + " \" textFill=\"#353535\" wrapText=\"true\"> <HBox.margin> <Insets left=\"15.0\" /> </HBox.margin> <font> <Font name=\"Century Gothic Bold\" size=\"16.0\" /> </font> </Label> </children> <padding> <Insets left=\"15.0\" right=\"15.0\" /> </padding> </HBox> <HBox layoutX=\"10.0\" layoutY=\"10.0\" prefHeight=\"57.0\" prefWidth=\"326.0\"> <children> <VBox prefHeight=\"59.0\" prefWidth=\"140.0\"> <children> <Label text=\"Author\" textFill=\"#8c8c8c\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </Label> <Label prefHeight=\"42.0\" prefWidth=\"145.0\" text=\"" + author + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"12.0\" /> </font> </Label> </children> </VBox> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"0.0\" prefWidth=\"156.0\" style=\"-fx-background-color: #828484; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"5.0\" /> </HBox.margin> <children> <Label text=\"Stock\" textFill=\"WHITE\"> <font> <Font name=\"Century Gothic Bold\" size=\"18.0\" /> </font> </Label> <HBox alignment=\"CENTER\" maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" prefHeight=\"38.0\" prefWidth=\"70.0\" style=\"-fx-background-color: #fff; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> <children> <Label text=\"" + stock + "\"> <font> <Font name=\"Century Gothic\" size=\"12.0\" /> </font> </Label> </children> </HBox> </children> <opaqueInsets> <Insets /> </opaqueInsets> <padding> <Insets left=\"15.0\" /> </padding> </HBox> </children> <padding> <Insets bottom=\"5.0\" left=\"15.0\" right=\"15.0\" top=\"5.0\" /> </padding> </HBox> <JFXButton prefHeight=\"44.0\" prefWidth=\"206.0\" scaleX=\"0.8\" scaleY=\"0.8\" scaleZ=\"0.8\" style=\"-fx-background-color: #6534AC; -fx-background-radius: 45px;\" text=\"Lend\" textFill=\"WHITE\"> <font> <Font name=\"Century Gothic\" size=\"12.0\" /> </font> <graphic> <ImageView fitHeight=\"28.0\" fitWidth=\"37.0\" pickOnBounds=\"true\" preserveRatio=\"true\" translateX=\"90.0\" translateY=\"3.0\"> <image> <Image url=\"images/4x/borrow_sign.png\" /> </image> </ImageView> </graphic> <padding> <Insets right=\"80.0\" /> </padding> <VBox.margin> <Insets top=\"15.0\" /> </VBox.margin>  </JFXButton> </children> </VBox> </children> </Pane>";
+                        + "<?import com.jfoenix.controls.JFXButton?><?import javafx.scene.control.Separator?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?>  <VBox prefHeight=\"110.0\" prefWidth=\"239.0\" style=\"-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;\"> <children> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"35.0\" prefWidth=\"239.0\"> <children> <ImageView fitHeight=\"26.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"32.0\" prefWidth=\"146.0\" text=\"" + itemName + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"11.0\" /> </font> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> </Label> <HBox alignment=\"CENTER\" prefHeight=\"21.0\" prefWidth=\"58.0\" style=\"-fx-background-color: "+(stock == 0 ? "#F70000":"#6534AC")+"; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"17.0\" /> </HBox.margin> <children> <Label text=\"" + stock + "\" textFill=\"WHITE\" /> </children> </HBox> </children> </HBox> <Separator opacity=\"0.38\" prefWidth=\"200.0\"> <VBox.margin> <Insets top=\"8.0\" /> </VBox.margin> </Separator> <HBox prefHeight=\"36.0\" prefWidth=\"230.0\"> <VBox.margin> <Insets top=\"5.0\" /> </VBox.margin> <children> <Label prefHeight=\"35.0\" prefWidth=\"103.0\" text=\"By " + author + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"10.0\" /> </font> </Label> <Label prefHeight=\"36.0\" prefWidth=\"51.0\" text=\"Edition " + edition + "\" textFill=\"#6534ac\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"10.0\" /> </font> </Label> <JFXButton prefHeight=\"36.0\" prefWidth=\"75.0\" style=\"-fx-background-color: "+(stock == 0 ? "#C6C6C6":"#6534AC")+";\" text=\"Lend\" textFill=\""+(stock == 0 ? "#828282":"white")+"\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </JFXButton> </children> </HBox> </children> </VBox>";
                 try {
-                    if (i <= 8) {
+                    if (i <= 24) {
                         FXMLLoader loader = new FXMLLoader();
-                        Pane layout = (Pane) loader.load(
+                        VBox layout = (VBox) loader.load(
                                 new ByteArrayInputStream(FXML_STRING.getBytes()
                                 ));
 
                         layout.setCursor(Cursor.HAND);
+
+                        if(stock == 0){
+                            layout.setStyle("-fx-border-color:#F70000;-fx-padding:10px;-fx-border-width:0.5px");
+                        }
 
                         //Creating the mouse event handler
                         EventHandler<MouseEvent> borrowItem = new EventHandler<MouseEvent>() {
@@ -237,33 +323,7 @@ public class HomePageController implements Initializable {
                         //Registering the event filter
                         layout.addEventFilter(MouseEvent.MOUSE_CLICKED, borrowItem);
 
-                        if (i == 0) {
-                            GridPane.setConstraints(layout, 0, 0);
-                        }
-                        if (i == 1) {
-                            GridPane.setConstraints(layout, 1, 0);
-                        }
-                        if (i == 2) {
-                            GridPane.setConstraints(layout, 2, 0);
-                        }
-                        if (i == 3) {
-                            GridPane.setConstraints(layout, 0, 1);
-                        }
-                        if (i == 4) {
-                            GridPane.setConstraints(layout, 1, 1);
-                        }
-                        if (i == 5) {
-                            GridPane.setConstraints(layout, 2, 1);
-                        }
-                        if (i == 6) {
-                            GridPane.setConstraints(layout, 0, 2);
-                        }
-                        if (i == 7) {
-                            GridPane.setConstraints(layout, 1, 2);
-                        }
-                        if (i == 8) {
-                            GridPane.setConstraints(layout, 2, 2);
-                        }
+                        GridPane.setConstraints(layout, coords[i].y, coords[i].x);
 
                         templateRenderer.getChildren().add(layout);
                         i++;
@@ -287,7 +347,14 @@ public class HomePageController implements Initializable {
         bookIcon.setImage(new Image("images/4x/book_active.png"));
         showBooksBtn.setTextFill(Color.web("#6534AC"));
         showBooksBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
-        generateItems("Book", "images/4x/book_active.png");
+
+        sql = "select  * from libraryitem where itemType = 'Book' LIMIT 24 offset 0";
+        generateItems("Book", "images/4x/book_active.png", offsetQuery,sql);
+
+        //init total items to books
+        currentItemType = "Book";
+        totalItems.setText(totalBook + " Books");
+        searchItemHome.setPromptText("Search a book...");
     }
 
     @FXML
@@ -296,7 +363,14 @@ public class HomePageController implements Initializable {
         docIcon.setImage(new Image("images/4x/docs_active.png"));
         showRDBtn.setTextFill(Color.web("#6534AC"));
         showRDBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
-        generateItems("Research document", "images/4x/docs_active.png");
+
+        sql = "select  * from libraryitem where itemType = 'Research document' LIMIT 24 offset 0";
+        generateItems("Research document", "images/4x/docs_active.png", offsetQuery,sql);
+
+        //init total items to books
+        currentItemType = "Research document";
+        totalItems.setText(totalRD + " RDs");
+        searchItemHome.setPromptText("Search a research document...");
     }
 
     @FXML
@@ -305,7 +379,14 @@ public class HomePageController implements Initializable {
         cdIcon.setImage(new Image("images/4x/cd_active.png"));
         showCDBtn.setTextFill(Color.web("#6534AC"));
         showCDBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
-        generateItems("CD", "images/4x/cd_active.png");
+        
+        sql = "select  * from libraryitem where itemType = 'CD' LIMIT 24 offset 0";
+        generateItems("CD", "images/4x/cd_active.png", offsetQuery,sql);
+
+        //init total items to books
+        currentItemType = "CD";
+        totalItems.setText(totalCD + " CDs");
+        searchItemHome.setPromptText("Search a CD...");
     }
 
     @FXML
@@ -323,11 +404,6 @@ public class HomePageController implements Initializable {
         searchStudentTemplate();
     }
 
-    @FXML
-    private void searchStudent(KeyEvent event) {
-        searchStudentTemplate();
-    }
-
     public void searchStudentTemplate() {
         String searchitem = searchUserInput.getText();
         Student[] studentsFound = new Student[3];
@@ -335,7 +411,7 @@ public class HomePageController implements Initializable {
         if (searchitem.length() >= 1 && duration.getText().length() >= 1) {
             SearchEngine searchEngine = new SearchEngine(searchitem);
             int LidItemId = Integer.parseInt(libItemID.getText());
-            int durationVal = Integer.parseInt(duration.getText());
+            durationVal = Integer.parseInt(duration.getText());
             studentsFound = searchEngine.searchStudent(resultSearchContainer, LidItemId, durationVal);
 
         } else {
@@ -348,7 +424,7 @@ public class HomePageController implements Initializable {
             snackbar.getStylesheets().add(css);
 
             snackbar.fireEvent(new SnackbarEvent(
-                    new JFXSnackbarLayout("Please make sure you input the duration and the search area must not be empty!"),
+                    new JFXSnackbarLayout("Please make sured the search area is not  empty!"),
                     Duration.seconds(4), null));
         }
     }
@@ -358,4 +434,30 @@ public class HomePageController implements Initializable {
         App.setRoot("lending");
     }
 
+    @FXML
+    private void searchStudentLive(KeyEvent event) {
+        searchStudentTemplate();
+    }
+
+    @FXML
+    private void searchItemsHome(KeyEvent event) {
+
+        if(searchItemHome.getText().length() >= 1){
+            sql = "select  * from libraryitem where itemType = '"+currentItemType+"' and itemName like '%"+searchItemHome.getText()+"%' LIMIT 24 offset 0";
+            generateItems("CD", "images/4x/cd_active.png", offsetQuery,sql);
+         }
+
+    }
+
+}
+
+class Coords {
+
+    public int x;
+    public int y;
+
+    Coords(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
