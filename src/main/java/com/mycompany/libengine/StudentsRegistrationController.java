@@ -20,8 +20,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -48,6 +50,10 @@ public class StudentsRegistrationController implements Initializable {
     private ComboBox studentDepart;
 
     int[] departIndexes = new int[30];
+    @FXML
+    private TextField txtmatricule;
+    @FXML
+    private ComboBox txtgender;
 
     /**
      * Initializes the controller class.
@@ -60,7 +66,7 @@ public class StudentsRegistrationController implements Initializable {
         //Disable an input field
         //fullName.setDisable(true);
         // TODO
-        //        Getting the data from the database
+        //        Getting the departments  from the database
         try {
 
             sql = "select * from department";
@@ -81,6 +87,14 @@ public class StudentsRegistrationController implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        // Setting the gender
+        txtgender.getItems().add("Male");
+        txtgender.getItems().add("Feminine");
+
+        Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
     }
 
     public void resetField() {
@@ -96,31 +110,56 @@ public class StudentsRegistrationController implements Initializable {
             String fullNameVal = fullName.getText(),
                     emailVal = email.getText(),
                     department = studentDepart.getSelectionModel().getSelectedItem().toString(),
-                    phoneVal = phone.getText();
+                    phoneVal = phone.getText(),
+                    gender = txtgender.getSelectionModel().getSelectedItem().toString(), 
+                    matricule = txtmatricule.getText();
 
             int departIndex = studentDepart.getSelectionModel().getSelectedIndex();
+
+            System.out.println(matricule);
+            System.out.println(gender);
 
             System.out.println(" Selected index " + departIndex);
 
             if (fullNameVal.length() < 2) {
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
-                a.setContentText("The fullname must be at least 3 characters long");
+                a.setContentText("Name too short or empty!");
 
                 // show the dialog
                 a.show();
-            } else if (emailVal.length() < 2) {
-                System.out.println("Invalid Email");
-            } else if (phoneVal.length() < 2) {
-                System.out.println("Invalid Phone number");
+            } else if(matricule.length() < 2){
+              // set alert type
+              a.setAlertType(AlertType.ERROR);
+              a.setContentText("Matricule too short or empty!");
+
+              // show the dialog
+              a.show();
+            }else if (!emailVal.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+             
+                     // set alert type
+              a.setAlertType(AlertType.ERROR);
+              a.setContentText("Invalid Email!");
+
+              // show the dialog
+              a.show();
+            } else if (!phoneVal.matches("6[0-9]{8}")) {
+                  // set alert type
+              a.setAlertType(AlertType.ERROR);
+              a.setContentText("Invalid Phone number, must 9 numbers!");
+
+              // show the dialog
+              a.show();
             } else {
                 try {
-                    sql = "insert into student  (fullName,email,tel,idDepart) values (?,?,?,?)";
+                    sql = "insert into student  (fullName,email,tel,idDepart,matricule,gender) values (?,?,?,?,?,?)";
                     PreparedStatement st = con.prepareStatement(sql);
                     st.setString(1, fullNameVal);
                     st.setString(2, emailVal);
                     st.setString(3, phoneVal);
                     st.setInt(4, departIndexes[departIndex]);
+                    st.setString(5, matricule);
+                    st.setString(6, gender);
 
                     st.execute();
 

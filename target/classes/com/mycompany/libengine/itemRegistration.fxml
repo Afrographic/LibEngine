@@ -109,6 +109,26 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </HBox>
+                              <HBox accessibleText="Author" layoutX="50.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="451.0" style="-fx-border-width: 1px; -fx-border-color: #D7D7D7; -fx-border-radius: 100px; -fx-padding: 15PX;">
+                                 <children>
+                                    <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" translateY="-5.0">
+                                       <image>
+                                          <Image url="@../../../images/4x/edition.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField fx:id="txtEdition" prefHeight="42.0" prefWidth="368.0" promptText="Edition Year" style="-fx-background-color: TRANSPARENT;" translateY="-5.0">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Century Gothic" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <HBox layoutX="50.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="451.0" style="-fx-border-width: 1px; -fx-border-color: #D7D7D7; -fx-border-radius: 100px; -fx-padding: 15PX;">
                                  <children>
                                     <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" translateY="-5.0">

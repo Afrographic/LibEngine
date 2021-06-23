@@ -16,13 +16,15 @@ public class LibItem {
     public String itemName;
     public String itemAuthor;
     public String position;
+    public String itemType;
     public int stock;
 
-    public LibItem(int libItemId, String itemIcon, String itemName, String itemAuthor, int stock, String position) {
+    public LibItem(int libItemId, String itemIcon, String itemName, String itemAuthor, int stock, String position,String itemType) {
         this.libItemId = libItemId;
         this.itemAuthor = itemAuthor;
         this.itemName = itemName;
         this.stock = stock;
+        this.itemType = itemType;
         this.itemIcon = itemIcon;
         this.position = position;
     }

@@ -18,7 +18,7 @@
    <children>
       <VBox layoutX="-5.0" layoutY="-2.0" prefHeight="775.0" prefWidth="1366.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px;">
+            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px; -fx-background-color: white;">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#showHomePage" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Lending  management">
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Lending  center">
                      <HBox.margin>
                         <Insets left="45.0" />
                      </HBox.margin>
@@ -36,9 +36,9 @@
                         <Font name="Century Gothic Bold" size="17.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="41.0" fitWidth="36.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" translateX="740.0">
+                  <ImageView fitHeight="33.0" fitWidth="46.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" translateX="710.0">
                      <image>
-                        <Image url="@../../../images/4x/manageUser.png" />
+                        <Image url="@../../../images/4x/Logo%20UIECC.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -75,164 +75,165 @@
                </padding>
             </HBox>
             <Pane prefHeight="1.0" prefWidth="1366.0" style="-fx-background-color: #6534AC;" translateY="-2.0" />
-            <HBox alignment="CENTER_LEFT">
-               <VBox.margin>
-                  <Insets top="35.0" />
-               </VBox.margin>
+            <VBox fx:id="safeLib" alignment="CENTER" prefHeight="576.0" prefWidth="1366.0">
                <children>
-                  <VBox prefHeight="72.0" prefWidth="1366.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="titlePenalties" text="14 students exceeded the time to return 20 items">
-                           <font>
-                              <Font name="Century Gothic Bold" size="29.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="55.0" layoutY="10.0" text="click on view items go get more details ">
-                           <font>
-                              <Font name="Century Gothic" size="15.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
+                        <VBox prefHeight="72.0" prefWidth="1366.0">
+                           <children>
+                              <Label fx:id="titlePenalties" text="14 students exceeded the time to return 20 items">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="29.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="55.0" layoutY="10.0" text="click on view items go get more details ">
+                                 <font>
+                                    <Font name="Century Gothic" size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="45.0" />
+                           </padding>
+                        </VBox>
+                        <ImageView fx:id="warningSign" fitHeight="45.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" translateX="-45.0">
+                           <image>
+                              <Image url="@../../../images/4x/risk.png" />
+                           </image>
+                        </ImageView>
                      </children>
-                     <padding>
-                        <Insets left="45.0" />
-                     </padding>
-                  </VBox>
-                  <ImageView fitHeight="59.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" translateX="-45.0">
-                     <image>
-                        <Image url="@../../../images/4x/risk.png" />
-                     </image>
-                  </ImageView>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="533.0" prefWidth="1366.0" style="-fx-background-color: transparent;">
+                     <content>
+                        <VBox fx:id="penaltiesContainer">
+                           <padding>
+                              <Insets left="45.0" right="45.0" />
+                           </padding>
+                           <children>
+                           
+                                    <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1274.0">
+                                 <children>
+                                    <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/penalties.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="364.0">
+                                       <children>
+                                          <Label text="Voundi Abessolo Paul Yvan">
+                                             <font>
+                                                <Font name="Century Gothic Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" text="Ingenieurie des systemes numeriques" textFill="#5e5e5e">
+                                             <font>
+                                                <Font name="Century Gothic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" layoutX="95.0" layoutY="10.0" prefHeight="66.0" prefWidth="583.0">
+                                       <children>
+                                          <Label text="Number of items">
+                                             <font>
+                                                <Font name="Century Gothic Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" text="04 items" textFill="#5e5e5e">
+                                             <font>
+                                                <Font name="Century Gothic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="More details" textFill="WHITE" translateX="38.0">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="2.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/moreDetail.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+      
+            
+                                    <Separator prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <HBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="10.0" prefHeight="65.0" prefWidth="1274.0">
+                                 <children>
+                                    <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/penalties.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="364.0">
+                                       <children>
+                                          <Label text="Voundi Abessolo Paul Yvan">
+                                             <font>
+                                                <Font name="Century Gothic Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" text="Ingenieurie des systemes numeriques" textFill="#5e5e5e">
+                                             <font>
+                                                <Font name="Century Gothic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" layoutX="95.0" layoutY="10.0" prefHeight="66.0" prefWidth="583.0">
+                                       <children>
+                                          <Label text="Number of items">
+                                             <font>
+                                                <Font name="Century Gothic Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" text="04 items" textFill="#5e5e5e">
+                                             <font>
+                                                <Font name="Century Gothic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="More details" textFill="WHITE" translateX="38.0">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="2.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/moreDetail.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
-            </HBox>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="467.0" prefWidth="1366.0" style="-fx-background-color: transparent;">
                <VBox.margin>
-                  <Insets top="35.0" />
+                  <Insets top="25.0" />
                </VBox.margin>
-               <content>
-                  <VBox fx:id="penaltiesContainer">
-                     <padding>
-                        <Insets left="45.0" right="45.0" />
-                     </padding>
-                     <children>
-                     
-                        <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1274.0">
-                           <children>
-                              <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/4x/penalties.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="364.0">
-                                 <children>
-                                    <Label text="Voundi Abessolo Paul Yvan">
-                                       <font>
-                                          <Font name="Century Gothic Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="Ingenieurie des systemes numeriques" textFill="#5e5e5e">
-                                       <font>
-                                          <Font name="Century Gothic" size="13.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox alignment="CENTER_LEFT" layoutX="95.0" layoutY="10.0" prefHeight="66.0" prefWidth="583.0">
-                                 <children>
-                                    <Label text="Number of items">
-                                       <font>
-                                          <Font name="Century Gothic Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="04 items" textFill="#5e5e5e">
-                                       <font>
-                                          <Font name="Century Gothic" size="13.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="More details" textFill="WHITE" translateX="38.0">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="2.0">
-                                       <image>
-                                          <Image url="@../../../images/4x/moreDetail.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-
-
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets top="8.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <HBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="10.0" prefHeight="65.0" prefWidth="1274.0">
-                           <children>
-                              <ImageView fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/4x/penalties.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="364.0">
-                                 <children>
-                                    <Label text="Voundi Abessolo Paul Yvan">
-                                       <font>
-                                          <Font name="Century Gothic Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="Ingenieurie des systemes numeriques" textFill="#5e5e5e">
-                                       <font>
-                                          <Font name="Century Gothic" size="13.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox alignment="CENTER_LEFT" layoutX="95.0" layoutY="10.0" prefHeight="66.0" prefWidth="583.0">
-                                 <children>
-                                    <Label text="Number of items">
-                                       <font>
-                                          <Font name="Century Gothic Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="04 items" textFill="#5e5e5e">
-                                       <font>
-                                          <Font name="Century Gothic" size="13.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="More details" textFill="WHITE" translateX="38.0">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="2.0">
-                                       <image>
-                                          <Image url="@../../../images/4x/moreDetail.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+            </VBox>
          </children>
       </VBox>
    </children>

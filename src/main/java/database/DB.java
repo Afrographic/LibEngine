@@ -7,6 +7,8 @@ package database;
 
 import java.sql.*;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  *
@@ -25,7 +27,9 @@ public class DB {
             con = DriverManager.getConnection(url, "root", "");
         } catch (SQLException ex) {
             System.out.println("Unable to connect");
-
+            Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+            // Add a custom icon.
+            stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
             a.setAlertType(Alert.AlertType.ERROR);
             a.setContentText("Database connexion error, please turn your mysql server on!");
             a.show();

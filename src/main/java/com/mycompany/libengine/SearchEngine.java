@@ -32,7 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -80,6 +80,9 @@ public class SearchEngine {
 
                     // Confirmation message
                     // set alert type
+                    Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+                    // Add a custom icon.
+                    stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
                     a.setAlertType(Alert.AlertType.INFORMATION);
                     a.setContentText("Book Borrowed successuflly!");
                     a.show();
@@ -96,17 +99,24 @@ public class SearchEngine {
                         System.out.println(e.getMessage());
                     }
 
-                    //Redirecting to the appRoot
-                    App.setRoot("homePage");
+                    //Closing the borrow screen
+                   App.setRoot("homePage");
+                  
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }else{
+                Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+                // Add a custom icon.
+                stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("This student is penalized! cannot lend any item!");
                 a.show();
             }
         }else{
+            Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+            // Add a custom icon.
+            stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
             a.setAlertType(AlertType.ERROR);
             a.setContentText("This student already have 04 library items! cannot lend more.");
             a.show();

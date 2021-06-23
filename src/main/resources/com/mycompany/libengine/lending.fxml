@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -19,7 +20,7 @@
    <children>
       <VBox layoutX="-5.0" layoutY="-2.0" prefHeight="775.0" prefWidth="1366.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px;">
+            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px; -fx-background-color: white;">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#popScreen" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +30,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Lending management">
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Lending center">
                      <HBox.margin>
                         <Insets left="45.0" />
                      </HBox.margin>
@@ -37,9 +38,9 @@
                         <Font name="Century Gothic Bold" size="17.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="41.0" fitWidth="36.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" translateX="740.0">
+                  <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" translateX="720.0">
                      <image>
-                        <Image url="@../../../images/4x/manageUser.png" />
+                        <Image url="@../../../images/4x/Logo%20UIECC.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -101,14 +102,23 @@
                         <Insets left="45.0" />
                      </padding>
                   </VBox>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="318.0" style="-fx-border-color: #bbb; -fx-border-width: 1px; -fx-border-radius: 45px;">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="541.0" style="-fx-border-color: #bbb; -fx-border-width: 1px; -fx-border-radius: 45px;">
                      <children>
-                        <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="closeSearch" fitHeight="21.0" fitWidth="21.0" onMouseClicked="#resetSearch" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/4x/search.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
-                        <TextField fx:id="searchLendUI" onKeyReleased="#searchBorrowItem" prefHeight="26.0" prefWidth="530.0" promptText="Input the name of the book to search..." style="-fx-background-color: transparent;">
+                        <ComboBox fx:id="txtSearchCath" prefHeight="26.0" prefWidth="109.0" promptText="Items" style="-fx-background-color: transparent;">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <TextField fx:id="searchLendUI" onKeyReleased="#searchBorrowItem" prefHeight="26.0" prefWidth="278.0" promptText="input the search token..." style="-fx-background-color: transparent;">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -120,6 +130,9 @@
                      <padding>
                         <Insets left="15.0" right="1.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
                   </HBox>
                </children>
             </HBox>
@@ -172,7 +185,7 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="Give Back" textFill="WHITE" translateX="38.0">
+                              <JFXButton prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #6534AC;" text="Give Back" textFill="WHITE" translateX="20.0">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
@@ -200,7 +213,7 @@
                   </VBox>
                </content>
                <padding>
-                  <Insets right="10.0" />
+                  <Insets right="20.0" />
                </padding>
             </ScrollPane>
          </children>

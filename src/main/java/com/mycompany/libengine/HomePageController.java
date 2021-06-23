@@ -19,10 +19,12 @@ import javafx.application.Application;
  */
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,11 +44,16 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -56,6 +63,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -142,10 +150,13 @@ public class HomePageController implements Initializable {
     int totalCD;
 
     String currentItemType;
+    String currentItemIcon;
     @FXML
     private Label totalItems;
     @FXML
     private TextField searchItemHome;
+    @FXML
+    private ImageView resetSearchIcon;
 
     /**
      * Initializes the controller class.
@@ -169,7 +180,7 @@ public class HomePageController implements Initializable {
 
         //show books at startUp
         sql = "select  * from libraryitem where itemType = 'Book' LIMIT 24 offset 0";
-        generateItems("Book", "images/4x/book_active.png", 0,sql);
+        generateItems("Book", "images/4x/book_active.png", 0, sql);
 
 //        Hide the borrow book screen
         this.closeBorrowScreen();
@@ -182,8 +193,13 @@ public class HomePageController implements Initializable {
 
         //init total items to books and search promptText
         currentItemType = "Book";
+        currentItemIcon = "images/4x/book_active.png";
         totalItems.setText(totalBook + " Books");
         searchItemHome.setPromptText("Search a book...");
+
+        Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
 
     }
 
@@ -259,7 +275,7 @@ public class HomePageController implements Initializable {
 
     void borrowItem(LibItem libItem) {
 
-        if(libItem.stock > 0){
+        if (libItem.stock > 0) {
 
             borrowItemView.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
             closeBorrowViewBtn.setStyle("-fx-scale-x:1;-fx-scale-y:1;-fx-scale-z:1");
@@ -272,11 +288,13 @@ public class HomePageController implements Initializable {
             bItemLocation.setText(libItem.position);
             bItemTitle.setText(libItem.itemName);
             libItemID.setText("" + libItem.libItemId);
-         }else{
+        } else {
+
             a.setAlertType(AlertType.ERROR);
+            a.setHeaderText("Cannot lend this item");
             a.setContentText("Sorry this item is out of stock!");
             a.show();
-         }
+        }
     }
 
     public void generateItems(String itemType, String itemIcon, int offset, String sql) {
@@ -295,10 +313,13 @@ public class HomePageController implements Initializable {
                 String position = rs.getString("position");
                 int stock = rs.getInt("stock");
                 int idLibItem = rs.getInt("idLibItem");
-                int edition = 2021;
+
+                int edition = rs.getInt("editionYear");
+
+                LibItem libitem = new LibItem(idLibItem, itemIcon, itemName, author, stock, position, itemType);
 
                 String FXML_STRING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                        + "<?import com.jfoenix.controls.JFXButton?><?import javafx.scene.control.Separator?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?>  <VBox prefHeight=\"110.0\" prefWidth=\"239.0\" style=\"-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;\"> <children> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"35.0\" prefWidth=\"239.0\"> <children> <ImageView fitHeight=\"26.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"32.0\" prefWidth=\"146.0\" text=\"" + itemName + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"11.0\" /> </font> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> </Label> <HBox alignment=\"CENTER\" prefHeight=\"21.0\" prefWidth=\"58.0\" style=\"-fx-background-color: "+(stock == 0 ? "#F70000":"#6534AC")+"; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"17.0\" /> </HBox.margin> <children> <Label text=\"" + stock + "\" textFill=\"WHITE\" /> </children> </HBox> </children> </HBox> <Separator opacity=\"0.38\" prefWidth=\"200.0\"> <VBox.margin> <Insets top=\"8.0\" /> </VBox.margin> </Separator> <HBox prefHeight=\"36.0\" prefWidth=\"230.0\"> <VBox.margin> <Insets top=\"5.0\" /> </VBox.margin> <children> <Label prefHeight=\"35.0\" prefWidth=\"103.0\" text=\"By " + author + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"10.0\" /> </font> </Label> <Label prefHeight=\"36.0\" prefWidth=\"51.0\" text=\"Edition " + edition + "\" textFill=\"#6534ac\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"10.0\" /> </font> </Label> <JFXButton prefHeight=\"36.0\" prefWidth=\"75.0\" style=\"-fx-background-color: "+(stock == 0 ? "#C6C6C6":"#6534AC")+";\" text=\"Lend\" textFill=\""+(stock == 0 ? "#828282":"white")+"\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </JFXButton> </children> </HBox> </children> </VBox>";
+                        + "<?import com.jfoenix.controls.JFXButton?><?import javafx.scene.control.Separator?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?>  <VBox prefHeight=\"110.0\" prefWidth=\"239.0\" style=\"-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;\"> <children> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"35.0\" prefWidth=\"239.0\"> <children> <ImageView fitHeight=\"26.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"32.0\" prefWidth=\"146.0\" text=\"" + itemName + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"11.0\" /> </font> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> </Label> <HBox alignment=\"CENTER\" prefHeight=\"21.0\" prefWidth=\"58.0\" style=\"-fx-background-color: #fff; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"17.0\" /> </HBox.margin> <children> <Label text=\"S: " + stock + "\" textFill=\"" + (stock == 0 ? "#F70000" : "#4d4d4d") + "\" /> </children> </HBox> </children> </HBox> <Separator opacity=\"0.38\" prefWidth=\"200.0\"> <VBox.margin> <Insets top=\"8.0\" /> </VBox.margin> </Separator> <HBox prefHeight=\"36.0\" prefWidth=\"230.0\"> <VBox.margin> <Insets top=\"5.0\" /> </VBox.margin> <children> <Label prefHeight=\"35.0\" prefWidth=\"103.0\" text=\"By " + author + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"10.0\" /> </font> </Label> <Label prefHeight=\"36.0\" prefWidth=\"51.0\" text=\"Edition " + (edition == 0 ? "2021" : edition) + "\" textFill=\"#6534ac\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"10.0\" /> </font> </Label> <JFXButton prefHeight=\"36.0\" prefWidth=\"75.0\" style=\"-fx-background-color: " + (stock == 0 ? "#C6C6C6" : "#6534AC") + ";\" text=\"Lend\" textFill=\"" + (stock == 0 ? "#828282" : "white") + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </JFXButton> </children> </HBox> </children> </VBox>";
                 try {
                     if (i <= 24) {
                         FXMLLoader loader = new FXMLLoader();
@@ -306,9 +327,7 @@ public class HomePageController implements Initializable {
                                 new ByteArrayInputStream(FXML_STRING.getBytes()
                                 ));
 
-                        layout.setCursor(Cursor.HAND);
-
-                        if(stock == 0){
+                        if (stock == 0) {
                             layout.setStyle("-fx-border-color:#F70000;-fx-padding:10px;-fx-border-width:0.5px");
                         }
 
@@ -316,15 +335,49 @@ public class HomePageController implements Initializable {
                         EventHandler<MouseEvent> borrowItem = new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent e) {
-                                borrowItem(new LibItem(idLibItem, itemIcon, itemName, author, stock, position));
+                                borrowItem(new LibItem(idLibItem, itemIcon, itemName, author, stock, position, itemType));
 
                             }
                         };
-                        //Registering the event filter
-                        layout.addEventFilter(MouseEvent.MOUSE_CLICKED, borrowItem);
+
+                        // Create ContextMenu
+                        ContextMenu contextMenu = new ContextMenu();
+                        MenuItem item1 = new MenuItem("Update the stock");
+                        item1.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                updateItemStock(libitem);
+                            }
+                        });
+                        MenuItem item2 = new MenuItem("Delete the item");
+                        item2.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                deleteItem(libitem);
+                            }
+                        });
+
+                        // Add MenuItem to ContextMenu
+                        contextMenu.getItems().addAll(item1, item2);
+
+                        // When user right-click on Circle
+                        layout.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                            @Override
+                            public void handle(ContextMenuEvent event) {
+
+                                contextMenu.show(layout, event.getScreenX(), event.getScreenY());
+                            }
+                        });
+
+                        //Add borrow event to the borrow button
+                        HBox lenParent = (HBox) layout.getChildren().get(layout.getChildren().size() - 1);
+                        Node lenButton = lenParent.getChildren().get(layout.getChildren().size() - 1);
+                        lenButton.setCursor(Cursor.HAND);
+                        lenButton.addEventFilter(MouseEvent.MOUSE_CLICKED, borrowItem);
 
                         GridPane.setConstraints(layout, coords[i].y, coords[i].x);
-
                         templateRenderer.getChildren().add(layout);
                         i++;
                     }
@@ -340,6 +393,93 @@ public class HomePageController implements Initializable {
         }
     }
 
+    void updateItemStock(LibItem libItem) {
+        TextInputDialog dialog = new TextInputDialog("Current stock " + libItem.stock);
+        // Get the Stage.
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
+        dialog.setTitle("Update the stock");
+        dialog.setHeaderText("You are about to update the stock of the " + libItem.itemType + " " + libItem.itemName);
+        dialog.setContentText("Please enter the new stock :");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            int stock = Integer.parseInt(result.get());
+
+            //increasing the stock of the book
+            sql = "update  libraryitem set stock = " + stock + " where idLibItem = " + libItem.libItemId;
+            try {
+                Statement sta = con.createStatement();
+                int rs = sta.executeUpdate(sql);
+
+              
+                    sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
+                    generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
+               
+
+                a.setAlertType(AlertType.INFORMATION);
+                a.setHeaderText("Stock updated successfully!");
+
+                a.show();
+            } catch (SQLException e) {
+                System.out.println("Update stock error");
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
+    void deleteItem(LibItem libItem) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to delete the " + libItem.itemType + " " + libItem.itemName);
+        // alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            //make sure that the book is not lended to anybody
+            try {
+                sql = "select * from itemstostudent where idLibItem = " + libItem.libItemId;
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+               
+                if (!rs.next()) {
+
+                    //delete the book from borrow
+                    sql = "delete from libraryitem where idLibItem = ?";
+                    try {
+                        PreparedStatement preparedStmt = con.prepareStatement(sql);
+                        preparedStmt.setInt(1, libItem.libItemId);
+                        preparedStmt.execute();
+
+                        sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
+                        generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
+
+                        a.setAlertType(AlertType.INFORMATION);
+                        a.setContentText(libItem.itemType + " deleted !");
+                        a.show();
+                    } catch (SQLException e) {
+                        System.out.println("Database error");
+                    }
+                }else{
+                    a.setAlertType(AlertType.INFORMATION);
+                    a.setContentText("Cannot delete this item, it is lended to a student!");
+                    a.show();
+                }
+            } catch (SQLException e) {
+                System.out.println( e.getMessage());
+            }
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+    }
+
     @FXML
     private void showBooks(ActionEvent event) {
         //
@@ -349,10 +489,11 @@ public class HomePageController implements Initializable {
         showBooksBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
 
         sql = "select  * from libraryitem where itemType = 'Book' LIMIT 24 offset 0";
-        generateItems("Book", "images/4x/book_active.png", offsetQuery,sql);
+        generateItems("Book", "images/4x/book_active.png", offsetQuery, sql);
 
         //init total items to books
         currentItemType = "Book";
+        currentItemIcon = "images/4x/book_active.png";
         totalItems.setText(totalBook + " Books");
         searchItemHome.setPromptText("Search a book...");
     }
@@ -365,10 +506,11 @@ public class HomePageController implements Initializable {
         showRDBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
 
         sql = "select  * from libraryitem where itemType = 'Research document' LIMIT 24 offset 0";
-        generateItems("Research document", "images/4x/docs_active.png", offsetQuery,sql);
+        generateItems("Research document", "images/4x/docs_active.png", offsetQuery, sql);
 
         //init total items to books
         currentItemType = "Research document";
+        currentItemIcon = "images/4x/docs_active.png";
         totalItems.setText(totalRD + " RDs");
         searchItemHome.setPromptText("Search a research document...");
     }
@@ -379,12 +521,13 @@ public class HomePageController implements Initializable {
         cdIcon.setImage(new Image("images/4x/cd_active.png"));
         showCDBtn.setTextFill(Color.web("#6534AC"));
         showCDBtn.setStyle("-fx-background-color:#EBE4F4;-fx-background-radius:45px;");
-        
+
         sql = "select  * from libraryitem where itemType = 'CD' LIMIT 24 offset 0";
-        generateItems("CD", "images/4x/cd_active.png", offsetQuery,sql);
+        generateItems("CD", "images/4x/cd_active.png", offsetQuery, sql);
 
         //init total items to books
         currentItemType = "CD";
+        currentItemIcon = "images/4x/cd_active.png";
         totalItems.setText(totalCD + " CDs");
         searchItemHome.setPromptText("Search a CD...");
     }
@@ -442,11 +585,20 @@ public class HomePageController implements Initializable {
     @FXML
     private void searchItemsHome(KeyEvent event) {
 
-        if(searchItemHome.getText().length() >= 1){
-            sql = "select  * from libraryitem where itemType = '"+currentItemType+"' and itemName like '%"+searchItemHome.getText()+"%' LIMIT 24 offset 0";
-            generateItems("CD", "images/4x/cd_active.png", offsetQuery,sql);
-         }
+        if (searchItemHome.getText().length() >= 1) {
+            resetSearchIcon.setImage(new Image("images/4x/close_grey.png"));
+            sql = "select  * from libraryitem where itemType = '" + currentItemType + "' and itemName like '%" + searchItemHome.getText() + "%' LIMIT 24 offset 0";
+            generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
+        }
 
+    }
+
+    @FXML
+    private void resetSearch(MouseEvent event) {
+        searchItemHome.clear();
+        resetSearchIcon.setImage(new Image("images/4x/search.png"));
+        sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
+        generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
     }
 
 }

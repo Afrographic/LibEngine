@@ -21,8 +21,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -50,6 +52,8 @@ public class ItemRegistrationController implements Initializable {
     // create a alert
     Alert a = new Alert(AlertType.WARNING);
     String[] itemTyepArray = {"Book", "CDs", "Research document"};
+    @FXML
+    private TextField txtEdition;
 
     /**
      * Initializes the controller class.
@@ -61,6 +65,10 @@ public class ItemRegistrationController implements Initializable {
 
         //initializing the database connection
         con = db.getConnection();
+
+        Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
     }
 
     public void resetField() {
@@ -75,36 +83,38 @@ public class ItemRegistrationController implements Initializable {
 
         try {
 
-            System.out.println("Users values");
-            System.out.println("" + stock.getText());
-            System.out.println("" + itemName.getText());
-            System.out.println("" + Author.getText());
-            System.out.println("" + position.getText());
-            System.out.println("" + itemType.getSelectionModel().getSelectedItem());
-            System.out.println("END");
+           
 
             String itemNameVal = itemName.getText(),
                     AuthorVal = Author.getText(),
                     ItemTypeVal = itemType.getSelectionModel().getSelectedItem().toString(),
+                    edition = txtEdition.getText(),
                     positionVal = position.getText();
             int stockVal = Integer.parseInt(stock.getText());
             // String itemTypeVal = itemTyepArray[itemType.getVisibleRowCount()];
 
             if (itemNameVal.length() < 2) {
+              
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
-                a.setContentText("The item name must not be empty");
+                a.setContentText("The item name is too short!");
 
                 // show the dialog
                 a.show();
             } else if (AuthorVal.length() < 2) {
+               
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
-                a.setContentText("The Author value cannot be null");
+                a.setContentText("The Author name is too short!");
 
                 // show the dialog
                 a.show();
-            } else if (positionVal.length() < 2) {
+            } else if(!edition.matches("[0-9]{4}")){
+                a.setAlertType(AlertType.ERROR);
+                a.setContentText("The edition year must be 04 digits!");
+                a.show();
+            }else if (positionVal.length() < 2) {
+               
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("The Position need to be set");
@@ -112,6 +122,7 @@ public class ItemRegistrationController implements Initializable {
                 // show the dialog
                 a.show();
             } else if ((stockVal < 0)) {
+                
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("iNVALID  stock value!");
@@ -119,6 +130,7 @@ public class ItemRegistrationController implements Initializable {
                 // show the dialog
                 a.show();
             } else if (itemType.getSelectionModel().getSelectedItem().equals("")) {
+              
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("Please chose an item type!");
@@ -127,17 +139,21 @@ public class ItemRegistrationController implements Initializable {
                 a.show();
             } else {
                 try {
-                    sql = "insert into libraryitem  (itemName,author,position,stock,ItemType) values (?,?,?,?,?)";
+                    sql = "insert into libraryitem  (itemName,author,position,stock,ItemType,editionYear) values (?,?,?,?,?,?)";
                     PreparedStatement st = con.prepareStatement(sql);
                     st.setString(1, itemNameVal);
                     st.setString(2, AuthorVal);
                     st.setString(3, positionVal);
                     st.setInt(4, stockVal);
                     st.setString(5, ItemTypeVal);
+                    st.setInt(6, Integer.parseInt(edition));
                     st.execute();
 
                     // Confirmation message
                     // set alert type
+                    Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+                    // Add a custom icon.
+                    stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
                     a.setAlertType(AlertType.INFORMATION);
                     a.setContentText("Book registered successuflly!");
                     a.show();
@@ -146,6 +162,7 @@ public class ItemRegistrationController implements Initializable {
                     this.resetField();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
+                  
                     a.setAlertType(AlertType.ERROR);
                     a.setContentText("Database error, please try again ");
                     a.show();
@@ -153,6 +170,7 @@ public class ItemRegistrationController implements Initializable {
 
             }
         } catch (Exception e) {
+          
             a.setAlertType(AlertType.ERROR);
             a.setContentText("Please fill all the field");
             a.show();
