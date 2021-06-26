@@ -53,119 +53,155 @@ public class SearchEngine {
     public SearchEngine(String searchItem) {
         this.searchItem = searchItem;
 
-         // get the current date
-         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-         LocalDateTime now = LocalDateTime.now();
-         String currentDated = dtf.format(now);
-         currentDate = currentDated.split(" ")[0];
+        // get the current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String currentDated = dtf.format(now);
+        currentDate = currentDated.split(" ")[0];
 
         con = db.getConnection();
     }
 
     public void borrowItem(int idStud, int idLibItem, int duration, String borrowDate) throws IOException {
+        Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+        // Add a custom icon.
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
         System.out.println("" + idLibItem);
         System.out.println("" + idStud);
-        if(getHoldeditems(idStud)<= 3){
-            if(!checkPenalty(idStud)){
-                try {
-                    sql = "insert into itemstostudent (idStudent,idLibItem,dateBorrow,duration) values(?,?,?,?)";
-                    PreparedStatement st = con.prepareStatement(sql);
-                    st.setInt(1, idStud);
-                    st.setInt(2, idLibItem);
-                    st.setString(3, borrowDate);
-                    st.setInt(4, duration);
-                    st.execute();
-
-                // HomePageController homePageController = new HomePageController();
-
-                    // Confirmation message
-                    // set alert type
-                    Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
-                    // Add a custom icon.
-                    stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
-                    a.setAlertType(Alert.AlertType.INFORMATION);
-                    a.setContentText("Book Borrowed successuflly!");
-                    a.show();
-
-                    //decreasing the stock value
-                    sql = "update  libraryitem set stock = stock - 1 where idLibItem = " + idLibItem + " and stock > 0";
+        if (getHoldeditems(idStud) <= 3) {
+            if (!checkPenalty(idStud)) {
+                if (!alreadyHoldItem(idStud, idLibItem)) {
                     try {
-                        Statement sta = con.createStatement()  ;
-                        sta.executeUpdate(sql);
+                        sql = "insert into itemstostudent (idStudent,idLibItem,dateBorrow,duration) values(?,?,?,?)";
+                        PreparedStatement st = con.prepareStatement(sql);
+                        st.setInt(1, idStud);
+                        st.setInt(2, idLibItem);
+                        st.setString(3, borrowDate);
+                        st.setInt(4, duration);
+                        st.execute();
 
-                        System.out.println("Stock decremented");
+                        //saving the history
+                        sql = "insert into historylending (idStudent,idLibItem,dateBorrow,duration) values(?,?,?,?)";
+                        st = con.prepareStatement(sql);
+                        st.setInt(1, idStud);
+                        st.setInt(2, idLibItem);
+                        st.setString(3, borrowDate);
+                        st.setInt(4, duration);
+                        st.execute();
+
+                        // HomePageController homePageController = new HomePageController();
+                        // Confirmation message
+                        a.setAlertType(Alert.AlertType.INFORMATION);
+                        a.setContentText("Book Borrowed successuflly!");
+                        a.show();
+
+                        //decreasing the stock value
+                        sql = "update  libraryitem set stock = stock - 1 where idLibItem = " + idLibItem + " and stock > 0";
+                        try {
+                            Statement sta = con.createStatement();
+                            sta.executeUpdate(sql);
+
+                            System.out.println("Stock decremented");
+                        } catch (SQLException e) {
+                            System.out.println("Update stock error");
+                            System.out.println(e.getMessage());
+                        }
+
+                        //Closing the borrow screen
+                        // App.setRoot("homePage");
                     } catch (SQLException e) {
-                        System.out.println("Update stock error");
                         System.out.println(e.getMessage());
                     }
+                } else {
 
-                    //Closing the borrow screen
-                   App.setRoot("homePage");
-                  
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                    a.setAlertType(AlertType.ERROR);
+                    a.setContentText("This student already have the item!.");
+                    a.show();
+
                 }
-            }else{
-                Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
-                // Add a custom icon.
-                stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
+            } else {
+
                 a.setAlertType(AlertType.ERROR);
-                a.setContentText("This student is penalized! cannot lend any item!");
+                a.setContentText("This student is penalized! cannot borrow any item!");
                 a.show();
+
+                //Closing the borrow screen
+                //App.setRoot("homePage");
             }
-        }else{
-            Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
-            // Add a custom icon.
-            stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
+        } else {
+
             a.setAlertType(AlertType.ERROR);
             a.setContentText("This student already have 04 library items! cannot lend more.");
             a.show();
         }
     }
 
-    public int getHoldeditems(int idStudent){
+    public int getHoldeditems(int idStudent) {
         int holdedItems = 0;
-        sql = "select COUNT(idBorrow) as totalBorrow from itemstostudent where idStudent = "+idStudent;
-        try{
+        sql = "select COUNT(idBorrow) as totalBorrow from itemstostudent where idStudent = " + idStudent;
+        try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                holdedItems =  rs.getInt("totalBorrow");
+                holdedItems = rs.getInt("totalBorrow");
             }
             return holdedItems;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Database error");
 
             return holdedItems;
         }
     }
 
-    public boolean checkPenalty(int idStudent){
+    public boolean checkPenalty(int idStudent) {
         boolean penalized = false;
-        sql = "select * from itemstostudent where idStudent = "+idStudent;
-        try{
+        sql = "select * from itemstostudent where idStudent = " + idStudent;
+        try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                int duration =  rs.getInt("duration");
+                int duration = rs.getInt("duration");
                 String lendDate = rs.getString("dateBorrow");
 
-                 //computing elapsedDays
-                 String lentDate = lendDate.split(" ")[0];
-                 long elapseddays = PenaltyController.elapsedDays(currentDate, lentDate);
-                
-                 //determining the lateness
-                 if(elapseddays > duration){
+                //computing elapsedDays
+                String lentDate = lendDate.split(" ")[0];
+                long elapseddays = PenaltyController.elapsedDays(currentDate, lentDate);
+
+                //determining the lateness
+                if (elapseddays > duration) {
                     penalized = true;
-                 }
+                }
             }
             return penalized;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             return penalized;
         }
-        
+
+    }
+
+    public boolean alreadyHoldItem(int idStudent, int libItem) {
+        boolean HaveItem = false;
+
+        sql = "select * from itemstostudent where idStudent = " + idStudent + " and idLibItem = " + libItem;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                int duration = rs.getInt("duration");
+                String lendDate = rs.getString("dateBorrow");
+
+                //determining the lateness
+                if (duration > 0) {
+                    HaveItem = true;
+                }
+            }
+            return HaveItem;
+        } catch (SQLException e) {
+            return HaveItem;
+        }
     }
 
     public Student[] searchStudent(VBox searchContainer, int idLibItem, int duration) {
@@ -214,7 +250,8 @@ public class SearchEngine {
                                     // get the current date
                                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                                     LocalDateTime now = LocalDateTime.now();
-                                    System.out.println(dtf.format(now));
+                                    ;
+
                                     try {
                                         borrowItem(idStud, idLibItem, duration, dtf.format(now));
                                     } catch (IOException ex) {
@@ -233,7 +270,7 @@ public class SearchEngine {
                         Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    studentsFound[i] = new Student(idStud, fullName, tel, email, depart,sex,matricule);
+                    studentsFound[i] = new Student(idStud, fullName, tel, email, depart, sex, matricule);
                     i++;
                 }
 

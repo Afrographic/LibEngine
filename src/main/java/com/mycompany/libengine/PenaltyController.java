@@ -67,6 +67,8 @@ public class PenaltyController implements Initializable {
     @FXML
     private VBox safeLib;
 
+    public ArrayList<LendingByUser> penalizedStudsForPDF = new ArrayList<>();
+
     /**
      * Initializes the controller class.
      */
@@ -181,6 +183,9 @@ public class PenaltyController implements Initializable {
                 renderStudentPenalized(penalizedStuds.get(i));
                 totalitems = totalitems + penalizedStuds.get(i).lendings.size();
                 totalusers++;
+
+                //adding to the students to convoc
+                penalizedStudsForPDF.add(penalizedStuds.get(i));
             }
 
         }
@@ -247,6 +252,11 @@ public class PenaltyController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void generateConvocation(ActionEvent event) {
+        GeneratePDF.generate(penalizedStudsForPDF);
     }
 
 }

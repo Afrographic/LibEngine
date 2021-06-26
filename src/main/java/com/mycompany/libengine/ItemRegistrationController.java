@@ -83,8 +83,6 @@ public class ItemRegistrationController implements Initializable {
 
         try {
 
-           
-
             String itemNameVal = itemName.getText(),
                     AuthorVal = Author.getText(),
                     ItemTypeVal = itemType.getSelectionModel().getSelectedItem().toString(),
@@ -94,7 +92,7 @@ public class ItemRegistrationController implements Initializable {
             // String itemTypeVal = itemTyepArray[itemType.getVisibleRowCount()];
 
             if (itemNameVal.length() < 2) {
-              
+
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("The item name is too short!");
@@ -102,19 +100,19 @@ public class ItemRegistrationController implements Initializable {
                 // show the dialog
                 a.show();
             } else if (AuthorVal.length() < 2) {
-               
+
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("The Author name is too short!");
 
                 // show the dialog
                 a.show();
-            } else if(!edition.matches("[0-9]{4}")){
+            } else if (!edition.matches("[0-9]{4}")) {
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("The edition year must be 04 digits!");
                 a.show();
-            }else if (positionVal.length() < 2) {
-               
+            } else if (positionVal.length() < 2) {
+
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("The Position need to be set");
@@ -122,7 +120,7 @@ public class ItemRegistrationController implements Initializable {
                 // show the dialog
                 a.show();
             } else if ((stockVal < 0)) {
-                
+
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("iNVALID  stock value!");
@@ -130,7 +128,7 @@ public class ItemRegistrationController implements Initializable {
                 // show the dialog
                 a.show();
             } else if (itemType.getSelectionModel().getSelectedItem().equals("")) {
-              
+
                 // set alert type
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("Please chose an item type!");
@@ -155,14 +153,14 @@ public class ItemRegistrationController implements Initializable {
                     // Add a custom icon.
                     stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
                     a.setAlertType(AlertType.INFORMATION);
-                    a.setContentText("Book registered successuflly!");
+                    a.setContentText(ItemTypeVal+" registered successuflly!");
                     a.show();
 
                     // reset the field
                     this.resetField();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
-                  
+
                     a.setAlertType(AlertType.ERROR);
                     a.setContentText("Database error, please try again ");
                     a.show();
@@ -170,7 +168,7 @@ public class ItemRegistrationController implements Initializable {
 
             }
         } catch (Exception e) {
-          
+
             a.setAlertType(AlertType.ERROR);
             a.setContentText("Please fill all the field");
             a.show();
@@ -178,7 +176,8 @@ public class ItemRegistrationController implements Initializable {
     }
 
     @FXML
-    private void importParseCsvFile(MouseEvent event) {
+    private void importParseCsvFile(MouseEvent event) throws IOException {
+        LoadCSV.loadLibItemsCSV();
     }
 
     @FXML

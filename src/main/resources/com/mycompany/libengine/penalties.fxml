@@ -106,7 +106,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="533.0" prefWidth="1366.0" style="-fx-background-color: transparent;">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="480.0" prefWidth="1366.0" style="-fx-background-color: transparent;">
                      <content>
                         <VBox fx:id="penaltiesContainer">
                            <padding>
@@ -229,6 +229,28 @@
                         </VBox>
                      </content>
                   </ScrollPane>
+                  <HBox alignment="CENTER" prefHeight="68.0" prefWidth="1366.0">
+                     <children>
+                        <JFXButton onAction="#generateConvocation" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: #E2574C;" text="Generate a convocation" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/4x/pdfLogo_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Century Gothic Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
                <VBox.margin>
                   <Insets top="25.0" />

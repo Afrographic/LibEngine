@@ -157,6 +157,8 @@ public class HomePageController implements Initializable {
     private TextField searchItemHome;
     @FXML
     private ImageView resetSearchIcon;
+    @FXML
+    private ImageView registerStudIcon1;
 
     /**
      * Initializes the controller class.
@@ -244,7 +246,6 @@ public class HomePageController implements Initializable {
     }
 
     public void closeBorrowScreen() {
-
         overflowPane.setStyle("-fx-translate-y:-800px");
         borrowItemView.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
         closeBorrowViewBtn.setStyle("-fx-scale-x:0;-fx-scale-y:0;-fx-scale-z:0");
@@ -254,6 +255,8 @@ public class HomePageController implements Initializable {
     @FXML
     private void closeBorrowView(MouseEvent event) {
         closeBorrowScreen();
+        sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
+        generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
     }
 
     void UncolorButtons() {
@@ -316,16 +319,14 @@ public class HomePageController implements Initializable {
 
                 int edition = rs.getInt("editionYear");
 
-                LibItem libitem = new LibItem(idLibItem, itemIcon, itemName, author, stock, position, itemType);
+                LibItem libitem = new LibItem(idLibItem, itemIcon, Utils.formatString(itemName), Utils.formatString(author), stock, position, itemType);
 
                 String FXML_STRING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                        + "<?import com.jfoenix.controls.JFXButton?><?import javafx.scene.control.Separator?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?>  <VBox prefHeight=\"110.0\" prefWidth=\"239.0\" style=\"-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;\"> <children> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"35.0\" prefWidth=\"239.0\"> <children> <ImageView fitHeight=\"26.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"32.0\" prefWidth=\"146.0\" text=\"" + itemName + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"11.0\" /> </font> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> </Label> <HBox alignment=\"CENTER\" prefHeight=\"21.0\" prefWidth=\"58.0\" style=\"-fx-background-color: #fff; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"17.0\" /> </HBox.margin> <children> <Label text=\"S: " + stock + "\" textFill=\"" + (stock == 0 ? "#F70000" : "#4d4d4d") + "\" /> </children> </HBox> </children> </HBox> <Separator opacity=\"0.38\" prefWidth=\"200.0\"> <VBox.margin> <Insets top=\"8.0\" /> </VBox.margin> </Separator> <HBox prefHeight=\"36.0\" prefWidth=\"230.0\"> <VBox.margin> <Insets top=\"5.0\" /> </VBox.margin> <children> <Label prefHeight=\"35.0\" prefWidth=\"103.0\" text=\"By " + author + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"10.0\" /> </font> </Label> <Label prefHeight=\"36.0\" prefWidth=\"51.0\" text=\"Edition " + (edition == 0 ? "2021" : edition) + "\" textFill=\"#6534ac\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"10.0\" /> </font> </Label> <JFXButton prefHeight=\"36.0\" prefWidth=\"75.0\" style=\"-fx-background-color: " + (stock == 0 ? "#C6C6C6" : "#6534AC") + ";\" text=\"Lend\" textFill=\"" + (stock == 0 ? "#828282" : "white") + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </JFXButton> </children> </HBox> </children> </VBox>";
+                        + "<?import com.jfoenix.controls.JFXButton?><?import javafx.scene.control.Separator?> <?import javafx.geometry.Insets?> <?import javafx.scene.paint.*?><?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.TextField?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.ColumnConstraints?> <?import javafx.scene.layout.GridPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.RowConstraints?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?>  <VBox prefHeight=\"110.0\" prefWidth=\"239.0\" style=\"-fx-padding: 10px; -fx-border-color: #aaa; -fx-border-width: 0.5px;\"> <children> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"35.0\" prefWidth=\"239.0\"> <children> <ImageView fitHeight=\"26.0\" fitWidth=\"41.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <Label prefHeight=\"32.0\" prefWidth=\"146.0\" text=\"" + libitem.itemName + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"11.0\" /> </font> <HBox.margin> <Insets left=\"10.0\" /> </HBox.margin> </Label> <HBox alignment=\"CENTER\" prefHeight=\"21.0\" prefWidth=\"58.0\" style=\"-fx-background-color: #fff; -fx-background-radius: 45px;\"> <HBox.margin> <Insets left=\"17.0\" /> </HBox.margin> <children> <Label text=\"S: " + stock + "\" textFill=\"" + (stock == 0 ? "#F70000" : "#4d4d4d") + "\" /> </children> </HBox> </children> </HBox> <Separator opacity=\"0.38\" prefWidth=\"200.0\"> <VBox.margin> <Insets top=\"8.0\" /> </VBox.margin> </Separator> <HBox prefHeight=\"36.0\" prefWidth=\"230.0\"> <VBox.margin> <Insets top=\"5.0\" /> </VBox.margin> <children> <Label prefHeight=\"35.0\" prefWidth=\"103.0\" text=\"By " + libitem.itemAuthor + "\" wrapText=\"true\"> <font> <Font name=\"Century Gothic\" size=\"10.0\" /> </font> </Label> <Label prefHeight=\"36.0\" prefWidth=\"51.0\" text=\"Edition " + (edition == 0 ? "2021" : edition) + "\" textFill=\"#6534ac\" wrapText=\"true\"> <font> <Font name=\"Century Gothic Bold\" size=\"10.0\" /> </font> </Label> <JFXButton prefHeight=\"36.0\" prefWidth=\"75.0\" style=\"-fx-background-color: " + (stock == 0 ? "#C6C6C6" : "#6534AC") + ";\" text=\"Lend\" textFill=\"" + (stock == 0 ? "#828282" : "white") + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"12.0\" /> </font> </JFXButton> </children> </HBox> </children> </VBox>";
                 try {
                     if (i <= 24) {
                         FXMLLoader loader = new FXMLLoader();
-                        VBox layout = (VBox) loader.load(
-                                new ByteArrayInputStream(FXML_STRING.getBytes()
-                                ));
+                        VBox layout = (VBox) loader.load(new ByteArrayInputStream(FXML_STRING.getBytes()));
 
                         if (stock == 0) {
                             layout.setStyle("-fx-border-color:#F70000;-fx-padding:10px;-fx-border-width:0.5px");
@@ -335,7 +336,7 @@ public class HomePageController implements Initializable {
                         EventHandler<MouseEvent> borrowItem = new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent e) {
-                                borrowItem(new LibItem(idLibItem, itemIcon, itemName, author, stock, position, itemType));
+                                borrowItem(libitem);
 
                             }
                         };
@@ -359,8 +360,17 @@ public class HomePageController implements Initializable {
                             }
                         });
 
+                        MenuItem item3 = new MenuItem("Change position");
+                        item3.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                changePosition(libitem);
+                            }
+                        });
+
                         // Add MenuItem to ContextMenu
-                        contextMenu.getItems().addAll(item1, item2);
+                        contextMenu.getItems().addAll(item1, item2, item3);
 
                         // When user right-click on Circle
                         layout.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
@@ -396,9 +406,6 @@ public class HomePageController implements Initializable {
     void updateItemStock(LibItem libItem) {
         TextInputDialog dialog = new TextInputDialog("Current stock " + libItem.stock);
         // Get the Stage.
-        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        // Add a custom icon.
-        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
         dialog.setTitle("Update the stock");
         dialog.setHeaderText("You are about to update the stock of the " + libItem.itemType + " " + libItem.itemName);
         dialog.setContentText("Please enter the new stock :");
@@ -414,10 +421,8 @@ public class HomePageController implements Initializable {
                 Statement sta = con.createStatement();
                 int rs = sta.executeUpdate(sql);
 
-              
-                    sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
-                    generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
-               
+                sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
+                generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
 
                 a.setAlertType(AlertType.INFORMATION);
                 a.setHeaderText("Stock updated successfully!");
@@ -431,11 +436,12 @@ public class HomePageController implements Initializable {
         }
     }
 
+    void changePosition(LibItem libItem) {
+        System.out.println("We are changing the position");
+    }
+
     void deleteItem(LibItem libItem) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        // Add a custom icon.
-        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
         alert.setTitle("Confirmation");
         alert.setHeaderText("Are you sure you want to delete the " + libItem.itemType + " " + libItem.itemName);
         // alert.setContentText("Are you ok with this?");
@@ -448,7 +454,6 @@ public class HomePageController implements Initializable {
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
 
-               
                 if (!rs.next()) {
 
                     //delete the book from borrow
@@ -457,6 +462,16 @@ public class HomePageController implements Initializable {
                         PreparedStatement preparedStmt = con.prepareStatement(sql);
                         preparedStmt.setInt(1, libItem.libItemId);
                         preparedStmt.execute();
+
+                        //compute the total items again...
+                        computeTotalItemsPerCategories();
+                        if (currentItemType.equals("Book")) {
+                            totalItems.setText(totalBook + " Books");
+                        } else if (currentItemType.equals("CD")) {
+                            totalItems.setText(totalCD + " CDs");
+                        } else {
+                            totalItems.setText(totalRD + " RDs");
+                        }
 
                         sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
                         generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
@@ -467,13 +482,13 @@ public class HomePageController implements Initializable {
                     } catch (SQLException e) {
                         System.out.println("Database error");
                     }
-                }else{
+                } else {
                     a.setAlertType(AlertType.INFORMATION);
                     a.setContentText("Cannot delete this item, it is lended to a student!");
                     a.show();
                 }
             } catch (SQLException e) {
-                System.out.println( e.getMessage());
+                System.out.println(e.getMessage());
             }
         } else {
             // ... user chose CANCEL or closed the dialog
@@ -599,6 +614,16 @@ public class HomePageController implements Initializable {
         resetSearchIcon.setImage(new Image("images/4x/search.png"));
         sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset 0";
         generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
+    }
+
+    @FXML
+    private void showStatsScreen(ActionEvent event) {
+        try {
+            App.setRoot("statistics");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }

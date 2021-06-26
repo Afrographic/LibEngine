@@ -178,22 +178,22 @@ public class LendingController implements Initializable {
                     }
                 }
 
+                Student student = new Student(idStud, Utils.formatString(lender), tel, email, Utils.formatString(departmentLender), sexe, matricule);
+                LibItem libItem = new LibItem(idLibItem, itemIcon, Utils.formatString(itemName), Utils.formatString(itemAuthor), stock, position, itemType);
+                Lending lending = new Lending(idBorrow, lendDate, libItem, student, duration, returnDate.format(formatter), (elapseddays - duration));
+                lendings.add(lending);
+
                 // Storing data inside the object
+                //template rendering
                 if (idBorrow > 0) {
-                    Student student = new Student(idStud, lender, tel, email, departmentLender, sexe, matricule);
-                    LibItem libItem = new LibItem(idLibItem, itemIcon, itemName, itemAuthor, stock, position, itemType);
-                    Lending lending = new Lending(idBorrow, lendDate, libItem, student, duration, returnDate.format(formatter), (elapseddays - duration));
-                    lendings.add(lending);
+                   
 
                     // incrementing for the next insertion
                     i++;
-                }
 
-                //template rendering
-                if (idBorrow > 0) {
                     String fxmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                             + "\n"
-                            + "<?import com.jfoenix.controls.JFXButton?> <?import javafx.geometry.Insets?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.ScrollPane?> <?import javafx.scene.control.Separator?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?><HBox alignment=\"CENTER_LEFT\" prefHeight=\"65.0\" prefWidth=\"1274.0\"> <children> <ImageView fitHeight=\"49.0\" fitWidth=\"46.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <VBox alignment=\"CENTER_LEFT\" prefHeight=\"66.0\" prefWidth=\"364.0\"> <children> <Label text=\"" + itemName + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"Lent on " + lendDate + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> <HBox.margin> <Insets left=\"25.0\" right=\"45.0\" /> </HBox.margin> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"95.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"583.0\"> <children> <Label text=\"Borrowed by\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"" + lender + " -" + departmentLender + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <JFXButton prefHeight=\"50.0\" prefWidth=\"220.0\" style=\"-fx-background-color: #6534AC;\" text=\"Give Back\" textFill=\"WHITE\" translateX=\"20\"> <font> <Font size=\"19.0\" /> </font> <graphic> <ImageView fitHeight=\"24.0\" fitWidth=\"21.0\" pickOnBounds=\"true\" preserveRatio=\"true\" translateX=\"-10.0\" translateY=\"2.0\"> <image> <Image url=\"images/4x/putBack.png\" /> </image> </ImageView> </graphic></JFXButton> </children> </HBox>";
+                            + "<?import com.jfoenix.controls.JFXButton?> <?import javafx.geometry.Insets?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.ScrollPane?> <?import javafx.scene.control.Separator?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?><HBox alignment=\"CENTER_LEFT\" prefHeight=\"65.0\" prefWidth=\"1274.0\"> <children> <ImageView fitHeight=\"49.0\" fitWidth=\"46.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + itemIcon + "\" /> </image> </ImageView> <VBox alignment=\"CENTER_LEFT\" prefHeight=\"66.0\" prefWidth=\"364.0\"> <children> <Label text=\"" + libItem.itemName + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"Lent on " + lendDate + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> <HBox.margin> <Insets left=\"25.0\" right=\"45.0\" /> </HBox.margin> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"95.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"583.0\"> <children> <Label text=\"Borrowed by\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"" + student.fullname + " -" + student.depart + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <JFXButton prefHeight=\"50.0\" prefWidth=\"220.0\" style=\"-fx-background-color: #6534AC;\" text=\"Give Back\" textFill=\"WHITE\" translateX=\"20\"> <font> <Font size=\"19.0\" /> </font> <graphic> <ImageView fitHeight=\"24.0\" fitWidth=\"21.0\" pickOnBounds=\"true\" preserveRatio=\"true\" translateX=\"-10.0\" translateY=\"2.0\"> <image> <Image url=\"images/4x/putBack.png\" /> </image> </ImageView> </graphic></JFXButton> </children> </HBox>";
 
                     try {
 
@@ -212,7 +212,7 @@ public class LendingController implements Initializable {
                             @Override
                             public void handle(MouseEvent e) {
                                 System.out.println("Remove this shit from here");
-                                giveItemBack(idLibItem, idBorrow);
+                                giveItemBack(idLibItem, idBorrow, idStud);
 
                                 // Confirmation message
                                 // set alert type
@@ -250,7 +250,7 @@ public class LendingController implements Initializable {
         }
     }
 
-    public void giveItemBack(int idLibItem, int idBorrow) {
+    public void giveItemBack(int idLibItem, int idBorrow, int idStudent) {
         //delete the book from borrow
         sql = "delete from itemstostudent where idBorrow = ?";
         try {
@@ -271,6 +271,24 @@ public class LendingController implements Initializable {
         } catch (SQLException e) {
             System.out.println("Update stock error");
             System.out.println(e.getMessage());
+        }
+
+        //saving the history
+        // get the current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String returnDate = dtf.format(now);
+
+        try {
+            sql = "insert into historyreturn (idStudent,idLibItem,dateReturn) values(?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, idStudent);
+            st.setInt(2, idLibItem);
+            st.setString(3, returnDate);
+            st.execute();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
         }
 
     }

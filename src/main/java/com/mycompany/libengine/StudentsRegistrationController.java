@@ -111,7 +111,7 @@ public class StudentsRegistrationController implements Initializable {
                     emailVal = email.getText(),
                     department = studentDepart.getSelectionModel().getSelectedItem().toString(),
                     phoneVal = phone.getText(),
-                    gender = txtgender.getSelectionModel().getSelectedItem().toString(), 
+                    gender = txtgender.getSelectionModel().getSelectedItem().toString(),
                     matricule = txtmatricule.getText();
 
             int departIndex = studentDepart.getSelectionModel().getSelectedIndex();
@@ -128,28 +128,28 @@ public class StudentsRegistrationController implements Initializable {
 
                 // show the dialog
                 a.show();
-            } else if(matricule.length() < 2){
-              // set alert type
-              a.setAlertType(AlertType.ERROR);
-              a.setContentText("Matricule too short or empty!");
+            } else if (matricule.length() < 2) {
+                // set alert type
+                a.setAlertType(AlertType.ERROR);
+                a.setContentText("Matricule too short or empty!");
 
-              // show the dialog
-              a.show();
-            }else if (!emailVal.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-             
-                     // set alert type
-              a.setAlertType(AlertType.ERROR);
-              a.setContentText("Invalid Email!");
+                // show the dialog
+                a.show();
+            } else if (!emailVal.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
 
-              // show the dialog
-              a.show();
+                // set alert type
+                a.setAlertType(AlertType.ERROR);
+                a.setContentText("Invalid Email!");
+
+                // show the dialog
+                a.show();
             } else if (!phoneVal.matches("6[0-9]{8}")) {
-                  // set alert type
-              a.setAlertType(AlertType.ERROR);
-              a.setContentText("Invalid Phone number, must 9 numbers!");
+                // set alert type
+                a.setAlertType(AlertType.ERROR);
+                a.setContentText("Invalid Phone number, must 9 numbers!");
 
-              // show the dialog
-              a.show();
+                // show the dialog
+                a.show();
             } else {
                 try {
                     sql = "insert into student  (fullName,email,tel,idDepart,matricule,gender) values (?,?,?,?,?,?)";
@@ -187,8 +187,8 @@ public class StudentsRegistrationController implements Initializable {
     }
 
     @FXML
-    private void importParseCsvFile(MouseEvent event) {
-        System.out.println("Import csv file");
+    private void importParseCsvFile(MouseEvent event) throws IOException {
+        LoadCSV.loadStudentsCSV();
     }
 
     @FXML

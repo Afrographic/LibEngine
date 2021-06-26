@@ -49,7 +49,7 @@ public class App extends Application {
                         stage.close();
                         Stage stage2 = new Stage();
                         //scene = new Scene(loadFXML("nameLogoStartUp"), 1366, 768);
-                        scene = new Scene(loadFXML("lending"), 1366, 768);
+                        scene = new Scene(loadFXML("statistics"), 1366, 768);
                         stage2.setScene(scene);
                         stage2.setTitle("Lib Engine");
                         stage2.setResizable(false);

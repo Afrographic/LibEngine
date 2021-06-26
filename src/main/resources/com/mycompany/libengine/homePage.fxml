@@ -161,24 +161,42 @@
                                         </JFXButton>
                                         <VBox alignment="BOTTOM_LEFT" prefHeight="170.0" prefWidth="258.0">
                                             <children>
-                                                <JFXButton fx:id="registerStudBtn" contentDisplay="RIGHT" onAction="#showRegisterStudScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Students" textFill="#4d4d4d">
+                                                <JFXButton fx:id="lendBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showLendingScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Lending Center" textFill="#4d4d4d">
                                                     <graphic>
-                                                        <ImageView fx:id="registerStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0">
+                                                        <ImageView fx:id="manageStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-138.0">
                                                             <image>
-                                                                <Image url="@../../../images/4x/author_item.png" />
+                                                                <Image url="@../../../images/4x/admin.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
                                                     <font>
                                                         <Font name="Century Gothic" size="12.0" />
                                                     </font>
-                                                    <padding>
-                                                        <Insets right="-45.0" />
-                                                    </padding>
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
+                                                    <padding>
+                                                        <Insets right="-40.0" />
+                                                    </padding>
                                                 </JFXButton>
+                                    <JFXButton contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showStatsScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Statistics" textFill="#4d4d4d">
+                                       <graphic>
+                                          <ImageView fx:id="registerStudIcon1" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-95.0">
+                                             <image>
+                                                <Image url="@../../../images/4x/stats.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font name="Century Gothic" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <padding>
+                                          <Insets right="5.0" />
+                                       </padding>
+                                    </JFXButton>
                                                 <JFXButton fx:id="registerItemsBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" onAction="#showRegisterItemScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Items" textFill="#4d4d4d">
                                                     <graphic>
                                                         <ImageView fx:id="registerItemIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-125.0">
@@ -197,23 +215,23 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="lendBtn" contentDisplay="RIGHT" layoutX="10.0" layoutY="52.0" onAction="#showLendingScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Lending Center" textFill="#4d4d4d">
+                                                <JFXButton fx:id="registerStudBtn" contentDisplay="RIGHT" onAction="#showRegisterStudScreen" prefHeight="41.0" prefWidth="247.0" style="-fx-background-color: #fff; -fx-background-radius: 45px;" text="Register Students" textFill="#4d4d4d">
                                                     <graphic>
-                                                        <ImageView fx:id="manageStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-138.0">
+                                                        <ImageView fx:id="registerStudIcon" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0">
                                                             <image>
-                                                                <Image url="@../../../images/4x/admin.png" />
+                                                                <Image url="@../../../images/4x/author_item.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
                                                     <font>
                                                         <Font name="Century Gothic" size="12.0" />
                                                     </font>
+                                                    <padding>
+                                                        <Insets right="-45.0" />
+                                                    </padding>
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
-                                                    <padding>
-                                                        <Insets right="-40.0" />
-                                                    </padding>
                                                 </JFXButton>
                                             </children>
                                             <VBox.margin>
@@ -274,15 +292,15 @@
                                         <Image url="@../../../images/4x/cd_active.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="bItemTitle" prefHeight="130.0" prefWidth="246.0" text="Comprendre l'anglais en 10 jours" textFill="#333333" wrapText="true">
+                                <Label fx:id="bItemTitle" prefHeight="67.0" prefWidth="341.0" text="Comprendre l'anglais en 10 jours" textFill="#333333" wrapText="true">
                                     <font>
-                                        <Font name="Century Gothic Bold" size="24.0" />
+                                        <Font name="Century Gothic Bold" size="18.0" />
                                     </font>
                                     <HBox.margin>
                                         <Insets left="25.0" />
                                     </HBox.margin>
                                 </Label>
-                                <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="235.0">
+                                <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="253.0">
                                     <children>
                                         <Label text="Author" textFill="#333333">
                                             <VBox.margin>
@@ -292,7 +310,7 @@
                                                 <Font name="Century Gothic Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bItemAuthor" prefHeight="23.0" prefWidth="234.0" text="Prof. Ngoufack jean Martin" wrapText="true">
+                                        <Label fx:id="bItemAuthor" prefHeight="48.0" prefWidth="219.0" text="Prof. Ngoufack jean Martin ghghgh" wrapText="true">
                                             <font>
                                                 <Font name="Century Gothic" size="16.0" />
                                             </font>
@@ -315,7 +333,7 @@
                                                 <Insets left="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="70.0" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
                                             <children>
                                                 <Label fx:id="bitemStock" text="100" textFill="WHITE">
                                                     <font>

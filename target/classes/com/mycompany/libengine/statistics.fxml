@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.libengine.StatisticsController">
+   
+    
+     <children>
+      <VBox layoutX="-5.0" layoutY="-2.0" prefHeight="775.0" prefWidth="1366.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="1379.0" style="-fx-padding: 20px 45px; -fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#popScreen" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/4x/back.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="449.0" text="Statistics">
+                     <HBox.margin>
+                        <Insets left="45.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" translateX="720.0">
+                     <image>
+                        <Image url="@../../../images/4x/Logo%20UIECC.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Separator>
+            <HBox alignment="CENTER_LEFT">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <VBox prefHeight="62.0" prefWidth="1021.0">
+                     <children>
+                        <Label text="Evolution of lending/returns per month">
+                           <font>
+                              <Font name="Century Gothic Bold" size="29.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="55.0" layoutY="10.0" text="Here you can have a visual report of transactions of your library">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="45.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="541.0" style="-fx-border-color: #bbb; -fx-border-width: 1px; -fx-border-radius: 45px;">
+                     <children>
+                        <ImageView fx:id="closeSearch" fitHeight="21.0" fitWidth="21.0" onMouseClicked="#resetSearch" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/4x/date.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label text="Months">
+                           <HBox.margin>
+                              <Insets left="15.0" right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <ComboBox fx:id="months" prefHeight="26.0" prefWidth="286.0" promptText="Select the month" style="-fx-background-color: transparent;">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="1.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="583.0" prefWidth="1366.0">
+               <content>
+                  <VBox fx:id="chartParent" prefWidth="1366.0" />
+               </content>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </ScrollPane>
+           
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
