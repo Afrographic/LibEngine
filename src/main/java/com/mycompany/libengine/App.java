@@ -39,7 +39,7 @@ public class App extends Application {
         switchToApp(stage);
     }
 
-    public void switchToApp(Stage stage) {
+    public static void switchToApp(Stage stage) {
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(1),
                 ae -> {
@@ -49,7 +49,7 @@ public class App extends Application {
                         stage.close();
                         Stage stage2 = new Stage();
                         //scene = new Scene(loadFXML("nameLogoStartUp"), 1366, 768);
-                        scene = new Scene(loadFXML("statistics"), 1366, 768);
+                        scene = new Scene(loadFXML("login"), 500, 768);
                         stage2.setScene(scene);
                         stage2.setTitle("Lib Engine");
                         stage2.setResizable(false);

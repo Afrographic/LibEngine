@@ -79,7 +79,7 @@
                   </VBox>
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="541.0" style="-fx-border-color: #bbb; -fx-border-width: 1px; -fx-border-radius: 45px;">
                      <children>
-                        <ImageView fx:id="closeSearch" fitHeight="21.0" fitWidth="21.0" onMouseClicked="#resetSearch" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="21.0" fitWidth="21.0" onMouseClicked="#resetSearch" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/4x/date.png" />
                            </image>
@@ -93,7 +93,7 @@
                            </HBox.margin>
                         </Label>
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <ComboBox fx:id="months" prefHeight="26.0" prefWidth="286.0" promptText="Select the month" style="-fx-background-color: transparent;">
+                        <ComboBox fx:id="months" onAction="#loadChart" prefHeight="26.0" prefWidth="286.0" promptText="Select the month" style="-fx-background-color: transparent;">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -110,7 +110,78 @@
             </HBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="583.0" prefWidth="1366.0">
                <content>
-                  <VBox fx:id="chartParent" prefWidth="1366.0" />
+                  <VBox prefWidth="1366.0" style="-fx-padding: 0px  45px;">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="61.0" prefWidth="1278.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" spacing="40.0">
+                           <children>
+                              <HBox alignment="CENTER" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                 <children>
+                                    <Label fx:id="totalLending" text="184" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label opacity="0.71" text="Total lendings" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                 <children>
+                                    <Label fx:id="totalReturns" text="184" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label opacity="0.71" text="Total returns" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER" style="-fx-background-color: #6534AC; -fx-background-radius: 45px;">
+                                 <children>
+                                    <Label fx:id="itemsOutside" text="184" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label opacity="0.71" text="Items outside" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox fx:id="chartParent" alignment="CENTER" />
+                     </children>
+                  </VBox>
                </content>
                <VBox.margin>
                   <Insets top="15.0" />

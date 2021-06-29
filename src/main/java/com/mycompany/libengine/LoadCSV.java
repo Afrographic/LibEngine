@@ -62,17 +62,21 @@ public class LoadCSV {
                         PreparedStatement st = con.prepareStatement(sql);
 
                         for (int i = 1; i < r.size(); i++) {
+                            if (r.get(i)[0].length() >= 1 && r.get(i)[1].length() >= 1 && r.get(i)[2].length() >= 1 && r.get(i)[3].length() >= 1 && r.get(i)[4].length() >= 1 && r.get(i)[5].length() >= 1) {
 
-                            if (!itemalreadyExist(r.get(i)[0], Integer.parseInt(r.get(i)[5]))) {
-                                st.setString(1, r.get(i)[0]);
-                                st.setString(2, r.get(i)[1]);
-                                st.setString(3, r.get(i)[2]);
-                                st.setInt(4, Integer.parseInt(r.get(i)[3]));
-                                st.setString(5, r.get(i)[4]);
-                                st.setInt(6, Integer.parseInt(r.get(i)[5]));
-                                st.addBatch();
-                            } else {
-                                alreadyExist++;
+                                if (!itemalreadyExist(r.get(i)[0], Integer.parseInt(r.get(i)[5]))) {
+
+                                    st.setString(1, r.get(i)[0]);
+                                    st.setString(2, r.get(i)[1]);
+                                    st.setString(3, r.get(i)[2]);
+                                    st.setInt(4, Integer.parseInt(r.get(i)[3]));
+                                    st.setString(5, r.get(i)[4]);
+                                    st.setInt(6, Integer.parseInt(r.get(i)[5]));
+                                    st.addBatch();
+
+                                } else {
+                                    alreadyExist++;
+                                }
                             }
 
                         }
@@ -86,7 +90,7 @@ public class LoadCSV {
 
                         if (result.length != 0) {
                             if (alreadyExist > 0) {
-                                a.setContentText(result.length + "Items was successfully inserted and " + alreadyExist + "  already exist!");
+                                a.setContentText(result.length + " Items were successfully inserted and " + alreadyExist + "  already exist!");
                             } else {
                                 a.setContentText("Items was successfully inserted inside the database!");
                             }
@@ -125,7 +129,7 @@ public class LoadCSV {
                 i++;
             }
 
-            System.out.println("Value of i " + i);
+       
 
             if (i != 0) {
                 alreadyExist = true;
@@ -187,7 +191,7 @@ public class LoadCSV {
 
                         if (result.length != 0) {
                             if (alreadyExist > 0) {
-                                a.setContentText(result.length + "Students was successfully inserted and " + alreadyExist + "  already exist!");
+                                a.setContentText(result.length + " Students was successfully inserted and " + alreadyExist + "  already exist!");
                             } else {
                                 a.setContentText("Students was successfully inserted inside the database!");
                             }
@@ -226,7 +230,7 @@ public class LoadCSV {
                 i++;
             }
 
-            System.out.println("Value of i " + i);
+       
 
             if (i != 0) {
                 alreadyExist = true;

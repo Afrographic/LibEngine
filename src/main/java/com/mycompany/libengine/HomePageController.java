@@ -151,6 +151,7 @@ public class HomePageController implements Initializable {
 
     String currentItemType;
     String currentItemIcon;
+    String nameSchool;
     @FXML
     private Label totalItems;
     @FXML
@@ -426,7 +427,7 @@ public class HomePageController implements Initializable {
 
                 a.setAlertType(AlertType.INFORMATION);
                 a.setHeaderText("Stock updated successfully!");
-
+                a.setContentText("");
                 a.show();
             } catch (SQLException e) {
                 System.out.println("Update stock error");

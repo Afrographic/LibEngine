@@ -206,6 +206,12 @@ public class GeneratePDF {
             signature.setMarginTop(60);
             signature.setTextAlignment(TextAlignment.CENTER);
 
+            //adding the date 
+            Paragraph date = new Paragraph(currentDated);
+            signature.setMaxWidth(200);
+            signature.setMarginLeft(360);
+            signature.setMarginTop(60);
+            signature.setTextAlignment(TextAlignment.CENTER);
 
             document.add(paragraph1);
             document.add(paragraph2);
@@ -226,6 +232,9 @@ public class GeneratePDF {
 
             //add signature
             document.add(signature);
+
+            //add date
+            document.add(date);
 
             document.close();
 

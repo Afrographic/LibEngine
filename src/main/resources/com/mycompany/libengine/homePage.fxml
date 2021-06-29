@@ -87,18 +87,14 @@
                                         <Insets left="50.0" />
                                     </HBox.margin>
                                 </HBox>
-                                <Pane prefHeight="56.0" prefWidth="63.0">
-                                    <HBox.margin>
-                                        <Insets left="50.0" />
-                                    </HBox.margin>
-                                    <children>
-                                        <ImageView fitHeight="42.0" fitWidth="51.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../../images/4x/Logo%20UIECC.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </Pane>
+                                  <ImageView fitHeight="48.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../../../images/4x/Logo%20UIECC.png" />
+                                      </image>
+                           <HBox.margin>
+                              <Insets left="60.0" />
+                           </HBox.margin>
+                                  </ImageView>
                             </children>
                         </HBox>
                         <HBox prefHeight="698.0" prefWidth="1337.0">
