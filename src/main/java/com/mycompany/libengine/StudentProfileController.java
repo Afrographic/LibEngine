@@ -71,10 +71,6 @@ public class StudentProfileController implements Initializable {
         nameTitle.setText(userDetailsVal.student.fullname);
         departTitle.setText(userDetailsVal.student.depart);
 
-        System.out.println("Let's check this shit");
-        System.out.println(userDetailsVal.student.email);
-        System.out.println(userDetailsVal.student.tel);
-
         // Student informations
         fullName.setText(userDetailsVal.student.fullname);
         sex.setText(userDetailsVal.student.sex);
@@ -100,14 +96,15 @@ public class StudentProfileController implements Initializable {
             e.printStackTrace();
         }
     }
-    void engineRenderHoldedItem(ArrayList<Lending> lendindsByUser){
-        for(int i = 0 ; i < lendindsByUser.size(); i++){
+
+    void engineRenderHoldedItem(ArrayList<Lending> lendindsByUser) {
+        for (int i = 0; i < lendindsByUser.size(); i++) {
             renderHoldedItem(lendindsByUser.get(i));
         }
     }
 
     void renderHoldedItem(Lending lending) {
-        String template_fxml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?import javafx.geometry.Insets?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.ScrollPane?> <?import javafx.scene.control.Separator?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"65.0\" prefWidth=\"1274.0\"> <children> <ImageView fitHeight=\"49.0\" fitWidth=\"46.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\""+lending.libItem.itemIcon+"\" /> </image> </ImageView> <VBox alignment=\"CENTER_LEFT\" prefHeight=\"66.0\" prefWidth=\"364.0\"> <children> <Label text=\""+lending.libItem.itemName+"\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"Lent on "+lending.lendDate+"\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> <HBox.margin> <Insets left=\"25.0\" /> </HBox.margin> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"95.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"289.0\"> <children> <Label text=\"Was supposed to be return on\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\""+lending.returnDay+"\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"445.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"505.0\"> <children> <Label text=\"Delay day"+ (lending.delayDay > 1 ? "s" : "")+"\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\""+lending.delayDay+" day"+ (lending.delayDay > 1 ? "s" : "")+"\" textFill=\"#F70000\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <ImageView fitHeight=\"30.0\" fitWidth=\"27.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"images/4x/penalties.png\" /> </image> </ImageView> </children> </HBox>";
+        String template_fxml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?import javafx.geometry.Insets?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Label?> <?import javafx.scene.control.ScrollPane?> <?import javafx.scene.control.Separator?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?> <HBox alignment=\"CENTER_LEFT\" prefHeight=\"65.0\" prefWidth=\"1274.0\"> <children> <ImageView fitHeight=\"49.0\" fitWidth=\"46.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"" + lending.libItem.itemIcon + "\" /> </image> </ImageView> <VBox alignment=\"CENTER_LEFT\" prefHeight=\"66.0\" prefWidth=\"364.0\"> <children> <Label text=\"" + lending.libItem.itemName + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"Lent on " + lending.lendDate + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> <HBox.margin> <Insets left=\"25.0\" /> </HBox.margin> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"95.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"289.0\"> <children> <Label text=\"Was supposed to be return on\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"" + lending.returnDay + "\" textFill=\"#5e5e5e\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <VBox alignment=\"CENTER_LEFT\" layoutX=\"445.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"250\"> <children> <Label text=\"Delay day" + (lending.delayDay > 1 ? "s" : "") + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"" + lending.delayDay + " day" + (lending.delayDay > 1 ? "s" : "") + "\" textFill=\"#F70000\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox>  <VBox alignment=\"CENTER_LEFT\" layoutX=\"445.0\" layoutY=\"10.0\" prefHeight=\"66.0\" prefWidth=\"250\"> <children> <Label text=\"Penalty fee" + (lending.delayDay > 1 ? "s" : "") + "\"> <font> <Font name=\"Century Gothic Bold\" size=\"15.0\" /> </font> </Label> <Label layoutX=\"10.0\" layoutY=\"10.0\" text=\"" + lending.delayDay * 500 + " XAF" + (lending.delayDay > 1 ? "s" : "") + "\" textFill=\"#F70000\"> <font> <Font name=\"Century Gothic\" size=\"13.0\" /> </font> </Label> </children> </VBox> <ImageView fitHeight=\"30.0\" fitWidth=\"27.0\" pickOnBounds=\"true\" preserveRatio=\"true\"> <image> <Image url=\"images/4x/penalties.png\" /> </image> </ImageView> </children> </HBox>";
 
         try {
 
@@ -121,12 +118,10 @@ public class StudentProfileController implements Initializable {
             itemsContainer.getChildren().addAll(layout, separator);
 
         } catch (IOException ex) {
-            System.out.println("PArsing error");
+            //System.out.println("PArsing error");
             Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-  
 
     @FXML
     private void showPenaltyScreen(MouseEvent event) {

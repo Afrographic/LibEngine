@@ -153,13 +153,13 @@ public class ItemRegistrationController implements Initializable {
                     // Add a custom icon.
                     stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
                     a.setAlertType(AlertType.INFORMATION);
-                    a.setContentText(ItemTypeVal+" registered successuflly!");
+                    a.setContentText(ItemTypeVal + " registered successuflly!");
                     a.show();
 
                     // reset the field
                     this.resetField();
                 } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
 
                     a.setAlertType(AlertType.ERROR);
                     a.setContentText("Database error, please try again ");
@@ -182,7 +182,7 @@ public class ItemRegistrationController implements Initializable {
 
     @FXML
     private void popScreen(MouseEvent event) throws IOException {
-        App.setRoot("studentRegistrationStartUp");
+        App.setRoot("homePage");
     }
 
 }

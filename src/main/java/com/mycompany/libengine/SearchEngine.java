@@ -66,8 +66,7 @@ public class SearchEngine {
         Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
         // Add a custom icon.
         stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));
-        System.out.println("" + idLibItem);
-        System.out.println("" + idStud);
+    
         if (getHoldeditems(idStud) <= 3) {
             if (!checkPenalty(idStud)) {
                 if (!alreadyHoldItem(idStud, idLibItem)) {
@@ -101,16 +100,16 @@ public class SearchEngine {
                             Statement sta = con.createStatement();
                             sta.executeUpdate(sql);
 
-                            System.out.println("Stock decremented");
+                            //System.out.println("Stock decremented");
                         } catch (SQLException e) {
-                            System.out.println("Update stock error");
-                            System.out.println(e.getMessage());
+                            //System.out.println("Update stock error");
+                            //System.out.println(e.getMessage());
                         }
 
                         //Closing the borrow screen
                         // App.setRoot("homePage");
                     } catch (SQLException e) {
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
                 } else {
 
@@ -148,7 +147,7 @@ public class SearchEngine {
             }
             return holdedItems;
         } catch (SQLException e) {
-            System.out.println("Database error");
+            //System.out.println("Database error");
 
             return holdedItems;
         }
@@ -208,8 +207,8 @@ public class SearchEngine {
         //Clear the result zone
         searchContainer.getChildren().clear();
 
-        System.out.println("Children suppossed to cleared");
-        System.out.println(searchContainer.getChildren().toString());
+        //System.out.println("Children suppossed to cleared");
+        //System.out.println(searchContainer.getChildren().toString());
 
         Student[] studentsFound = new Student[3];
         sql = "select * from student,department where fullname like '%" + this.searchItem + "%' and student.idDepart = department.idDepart LIMIT 3";
@@ -266,7 +265,7 @@ public class SearchEngine {
                         }
 
                     } catch (IOException ex) {
-                        System.out.println("PArsing error");
+                        //System.out.println("PArsing error");
                         Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -274,25 +273,25 @@ public class SearchEngine {
                     i++;
                 }
 
-                System.out.println("Final result " + i);
+                //System.out.println("Final result " + i);
             }
 
             //Checking if there is no result
-            System.out.println("Student Array");
-            System.out.println("" + Arrays.toString(studentsFound).length());
+            //System.out.println("Student Array");
+            //System.out.println("" + Arrays.toString(studentsFound).length());
 
             if (Arrays.toString(studentsFound).length() == 18) {
 
                 ImageView emptySearchResult = new ImageView();
                 emptySearchResult.setImage(new Image("images/4x/notFound.jpg"));
                 searchContainer.getChildren().add(emptySearchResult);
-                System.out.println("No result");
+                //System.out.println("No result");
             }
 
             return studentsFound;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
             return studentsFound;
         }

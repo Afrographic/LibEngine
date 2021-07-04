@@ -1,5 +1,6 @@
 package com.mycompany.libengine;
 
+import database.DB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -48,8 +53,30 @@ public class App extends Application {
                         //  stage.setOnCloseRequest(e -> Platform.exit());
                         stage.close();
                         Stage stage2 = new Stage();
-                        //scene = new Scene(loadFXML("nameLogoStartUp"), 1366, 768);
-                        scene = new Scene(loadFXML("login"), 500, 768);
+                        DB db = new DB();
+                        Connection con;
+                        String sql;
+
+                        //Check if it is the first time we open the app
+                        try {
+                            con = db.getConnection();
+                            sql = "select firstTime from admin where idAdmin = 1";
+                            Statement st = con.createStatement();
+                            ResultSet rs = st.executeQuery(sql);
+
+                            if (rs.next()) {
+                                boolean firstTime = rs.getBoolean("firstTime");
+                                //System.out.println("Execute this shit");
+                                if (firstTime) {
+                                    scene = new Scene(loadFXML("nameLogoStartUp"), 1366, 768);
+                                } else {
+                                    scene = new Scene(loadFXML("login"), 500, 768);
+                                }
+                            }
+                        } catch (SQLException e) {
+                            //System.out.println("Database error");
+                        }
+                        // scene = new Scene(loadFXML("login"), 500, 768);
                         stage2.setScene(scene);
                         stage2.setTitle("Lib Engine");
                         stage2.setResizable(false);

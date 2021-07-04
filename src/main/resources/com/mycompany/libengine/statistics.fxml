@@ -184,7 +184,7 @@
                   </VBox>
                </content>
                <VBox.margin>
-                  <Insets top="15.0" />
+                  <Insets right="10.0" top="15.0" />
                </VBox.margin>
             </ScrollPane>
            

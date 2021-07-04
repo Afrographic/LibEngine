@@ -138,7 +138,7 @@
             </HBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="494.0" prefWidth="1359.0" style="-fx-background-color: transparent;">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets right="10.0" top="10.0" />
                </VBox.margin>
                <content>
                   <VBox fx:id="borrowesItemContainer">

@@ -74,14 +74,14 @@ public class PenaltyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("Initialize this shit");
+        //System.out.println("Initialize this shit");
         totalitems = 0;
         totalusers = 0;
 
         // Clear all the items
         penaltiesContainer.getChildren().clear();
 
-        System.out.println("Shit " + lendings.size());
+        //System.out.println("Shit " + lendings.size());
         enginerenderStudentPenalized(lendingByUser);
         //update penalties title
         titlePenalties.setText(totalusers + " student" + (totalusers > 1 ? "s" : "") + " exceeded the time to return " + totalitems + " item" + (totalitems > 1 ? "s" : ""));
@@ -115,7 +115,7 @@ public class PenaltyController implements Initializable {
         String currentDated = dtf.format(now);
         currentDate = currentDated.split(" ")[0];
 
-        // System.out.println("Length of the lending " + lendings.size());
+        // //System.out.println("Length of the lending " + lendings.size());
         lendingByUser = sortingLendingByUser();
         try {
             App.setRoot("penalties");
@@ -134,7 +134,7 @@ public class PenaltyController implements Initializable {
 
         LocalDate tomorrow = firstDate.plusDays(1);
 
-        //System.out.println("Days between: " + days);
+        ////System.out.println("Days between: " + days);
         return days;
     }
 
@@ -155,7 +155,7 @@ public class PenaltyController implements Initializable {
                     long elapseddays = elapsedDays(currentDate, lentDate);
 
                     if (elapseddays > duration) {
-                        System.out.println("Duration holded " + (elapseddays - duration));
+                        //System.out.println("Duration holded " + (elapseddays - duration));
                         lendingsForUser.add(lendings.get(j));
                         //increase the number of items in late return
 
@@ -221,7 +221,7 @@ public class PenaltyController implements Initializable {
             penaltiesContainer.getChildren().addAll(layout, separator);
 
         } catch (IOException ex) {
-            System.out.println("PArsing error");
+            //System.out.println("PArsing error");
             Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

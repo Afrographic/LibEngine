@@ -48,11 +48,11 @@ public class LoadCSV {
         );
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            System.out.println(selectedFile);
+            //System.out.println(selectedFile);
 
             try (CSVReader reader = new CSVReader(new FileReader(selectedFile))) {
                 List<String[]> r = reader.readAll();
-                r.forEach(x -> System.out.println(Arrays.toString(x)));
+                //r.forEach(x -> //System.out.println(Arrays.toString(x)));
 
                 if (r.get(0).length == 6 && r.get(0)[3].equals("stock")) {
 
@@ -81,7 +81,7 @@ public class LoadCSV {
 
                         }
                         int[] result = st.executeBatch();
-                        System.out.println("The number of rows inserted: " + result.length);
+                        //System.out.println("The number of rows inserted: " + result.length);
 
                         // set alert type
                         // Add a custom icon.
@@ -99,7 +99,7 @@ public class LoadCSV {
                         }
                         a.show();
                     } catch (SQLException e) {
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
 
                 } else {
@@ -110,7 +110,7 @@ public class LoadCSV {
                 }
 
             } catch (CsvException e) {
-                System.out.println("Error File!");
+                //System.out.println("Error File!");
             }
         }
     }
@@ -136,7 +136,7 @@ public class LoadCSV {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return alreadyExist;
     }
@@ -153,11 +153,11 @@ public class LoadCSV {
         );
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            System.out.println(selectedFile);
+            //System.out.println(selectedFile);
 
             try (CSVReader reader = new CSVReader(new FileReader(selectedFile))) {
                 List<String[]> r = reader.readAll();
-                r.forEach(x -> System.out.println(Arrays.toString(x)));
+               // r.forEach(x -> //System.out.println(Arrays.toString(x)));
 
                 if (r.get(0).length == 6 && r.get(0)[4].equals("matricule")) {
 
@@ -182,7 +182,7 @@ public class LoadCSV {
 
                         }
                         int[] result = st.executeBatch();
-                        System.out.println("The number of rows inserted: " + result.length);
+                        //System.out.println("The number of rows inserted: " + result.length);
 
                         // set alert type
                         // Add a custom icon.
@@ -200,7 +200,7 @@ public class LoadCSV {
                         }
                         a.show();
                     } catch (SQLException e) {
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
 
                 } else {
@@ -211,7 +211,7 @@ public class LoadCSV {
                 }
 
             } catch (CsvException e) {
-                System.out.println("Error File!");
+                //System.out.println("Error File!");
             }
         }
     }
@@ -237,7 +237,7 @@ public class LoadCSV {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return alreadyExist;
     }

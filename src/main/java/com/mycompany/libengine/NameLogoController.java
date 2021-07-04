@@ -67,17 +67,24 @@ public class NameLogoController implements Initializable {
 
     @FXML
     private void swithToItemRegistration(ActionEvent event) throws IOException {
-
         if (nameSchool.getText().length() >= 1 && logo.getImage() != null) {
-            //saving the name to the databse
-
-            //redirecting to the next screen
-            App.setRoot("itemRegistrationStartUp");
+            try {
+                //saving the name to the database
+                String nameSchoolS = nameSchool.getText();
+                sql = "update admin set nameSchool = ?,firstTime = 0 where idAdmin = 1";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, Utils.formatString(nameSchoolS));
+                st.executeUpdate();
+                //redirecting to the next screen
+                App.setRoot("itemRegistrationStartUp");
+            } catch (SQLException ex) {
+                //System.out.println("Database Error");
+                Logger.getLogger(NameLogoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             a.setAlertType(Alert.AlertType.ERROR);
             a.setContentText("Please provide the logo and the name of your school");
             a.show();
-
         }
 
     }
@@ -92,13 +99,13 @@ public class NameLogoController implements Initializable {
         );
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            System.out.println(selectedFile);
+            //System.out.println(selectedFile);
             try {
                 CopyFile.copyFileUsingStream(selectedFile, new File("C:/Users/X M G/Documents/NetBeansProjects/LibEngine/src/main/resources/images/4x/Logo UIECC.png"));
 
                 //load the logo
                 Timeline timeline = new Timeline(new KeyFrame(
-                        Duration.millis(1000),
+                        Duration.millis(2000),
                         ae -> {
                             logo.setImage(new Image("images/4x/Logo UIECC.png"));
                         }));

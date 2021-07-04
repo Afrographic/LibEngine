@@ -109,7 +109,7 @@ public class LendingController implements Initializable {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                System.out.println("print the shit" + rs.getInt("totalBorrow"));
+                //System.out.println("print the shit" + rs.getInt("totalBorrow"));
 
                 totalBorrow = rs.getInt("totalBorrow");
                 //updating the UI
@@ -117,7 +117,7 @@ public class LendingController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -211,7 +211,7 @@ public class LendingController implements Initializable {
                         EventHandler<MouseEvent> giveBackEvent = new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent e) {
-                                System.out.println("Remove this shit from here");
+                                //System.out.println("Remove this shit from here");
                                 giveItemBack(idLibItem, idBorrow, idStud);
 
                                 // Confirmation message
@@ -225,7 +225,7 @@ public class LendingController implements Initializable {
                                 try {
                                     App.setRoot("lending");
                                 } catch (IOException ex) {
-                                    System.out.println("Unable to reload page");
+                                    //System.out.println("Unable to reload page");
                                     Logger.getLogger(LendingController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
@@ -238,7 +238,7 @@ public class LendingController implements Initializable {
                         borrowesItemContainer.getChildren().addAll(layout, separator);
 
                     } catch (IOException ex) {
-                        System.out.println("PArsing error");
+                        //System.out.println("PArsing error");
                         Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -246,7 +246,7 @@ public class LendingController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -258,7 +258,7 @@ public class LendingController implements Initializable {
             preparedStmt.setInt(1, idBorrow);
             preparedStmt.execute();
         } catch (SQLException e) {
-            System.out.println("Database error");
+            //System.out.println("Database error");
         }
 
         //increasing the stock of the book
@@ -267,10 +267,10 @@ public class LendingController implements Initializable {
             Statement sta = con.createStatement();
             int rs = sta.executeUpdate(sql);
 
-            System.out.println("Stock incremented");
+            //System.out.println("Stock incremented");
         } catch (SQLException e) {
-            System.out.println("Update stock error");
-            System.out.println(e.getMessage());
+            //System.out.println("Update stock error");
+            //System.out.println(e.getMessage());
         }
 
         //saving the history

@@ -39,7 +39,7 @@
                                         <Insets left="165.0" />
                                     </HBox.margin>
                                     <children>
-                              <Label fx:id="totalItems" opacity="0.44" prefHeight="30.0" prefWidth="183.0" text="04 books">
+                              <Label fx:id="totalItems" opacity="0.44" prefHeight="30.0" prefWidth="79.0" text="04 books">
                                  <font>
                                     <Font name="Century Gothic Bold" size="14.0" />
                                  </font>
@@ -48,7 +48,36 @@
                                  </HBox.margin>
                               </Label>
                               <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                        <TextField fx:id="searchItemHome" onKeyReleased="#searchItemsHome" prefHeight="23.0" prefWidth="670.0" promptText="Search an Item..." style="-fx-background-color: transparenmt;">
+                              <HBox fx:id="pagination" alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="29.0" fitWidth="37.0" onMouseClicked="#showPreviousPage" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/prev.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                    <Label fx:id="pagetxt" alignment="CENTER" prefHeight="18.0" prefWidth="55.0" text="1/2">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="29.0" fitWidth="37.0" onMouseClicked="#showNextPage" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/4x/next.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <Separator layoutX="106.0" layoutY="15.0" orientation="VERTICAL" prefHeight="200.0" />
+                                        <TextField fx:id="searchItemHome" onKeyReleased="#searchItemsHome" prefHeight="28.0" prefWidth="462.0" promptText="Search an Item..." style="-fx-background-color: transparenmt;">
                                             <font>
                                                 <Font name="Century Gothic" size="14.0" />
                                             </font>
@@ -71,7 +100,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="0.0" prefWidth="156.0" style="-fx-border-color: #ddd;">
                                     <children>
-                                        <Label prefHeight="28.0" prefWidth="113.0" text="Universite Inter-Etats Cameroun Congo" textFill="#949494" wrapText="true">
+                                        <Label fx:id="nameSchool" prefHeight="28.0" prefWidth="113.0" text="Universite Inter-Etats Cameroun Congo" textFill="#949494" wrapText="true">
                                             <font>
                                                 <Font name="Century Gothic Bold" size="11.0" />
                                             </font>

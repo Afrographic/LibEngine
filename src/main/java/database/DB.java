@@ -26,7 +26,7 @@ public class DB {
         try {
             con = DriverManager.getConnection(url, "root", "");
         } catch (SQLException ex) {
-            System.out.println("Unable to connect");
+            //System.out.println("Unable to connect");
             Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
             // Add a custom icon.
             stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/4x/AppIcon.png")));

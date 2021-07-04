@@ -77,9 +77,9 @@ public class StatisticsController implements Initializable {
         months.getSelectionModel().select(month);
 
         //render the chart of the current month
-        System.out.println("Current mont id " + months.getSelectionModel().getSelectedIndex() + 1);
+        //System.out.println("Current mont id " + months.getSelectionModel().getSelectedIndex() + 1);
 
-        System.out.println("Current month: " + currentMonth + " current year " + currentYear);
+        //System.out.println("Current month: " + currentMonth + " current year " + currentYear);
 
         //initializing the database connection
         con = db.getConnection();
@@ -120,7 +120,7 @@ public class StatisticsController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
     }
@@ -138,7 +138,7 @@ public class StatisticsController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -155,7 +155,7 @@ public class StatisticsController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -170,7 +170,7 @@ public class StatisticsController implements Initializable {
     void renderEngineChart(int idMonth) {
         ArrayList<LendingPerDay> lendings = sortingData(idMonth, "historylending");
         ArrayList<LendingPerDay> returns = sortingData(idMonth, "historyreturn");
-        System.out.println("index of the items selected " + idMonth);
+        //System.out.println("index of the items selected " + idMonth);
         renderChart(lendings, returns);
     }
 
@@ -217,20 +217,20 @@ public class StatisticsController implements Initializable {
                 lendDate = lendDate.split(" ")[0].split("/")[0];
                 int idDay = Integer.parseInt(lendDate);
 
-                System.out.println("id of the day " + idDay);
+                //System.out.println("id of the day " + idDay);
 
                 for (int i = 1; i <= 31; i++) {
                     if (itemsPerDay.get(i - 1).idDay == idDay) {
                         itemsPerDay.get(i - 1).totalLending++;
 
-                        System.out.println("total lending " + itemsPerDay.get(i - 1).totalLending);
+                        //System.out.println("total lending " + itemsPerDay.get(i - 1).totalLending);
                     }
                 }
 
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
         return itemsPerDay;

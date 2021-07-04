@@ -151,7 +151,8 @@ public class HomePageController implements Initializable {
 
     String currentItemType;
     String currentItemIcon;
-    String nameSchool;
+    @FXML
+    private Label nameSchool;
     @FXML
     private Label totalItems;
     @FXML
@@ -160,6 +161,13 @@ public class HomePageController implements Initializable {
     private ImageView resetSearchIcon;
     @FXML
     private ImageView registerStudIcon1;
+    @FXML
+    private HBox pagination;
+
+    int totalPage;
+    int currentPage;
+    @FXML
+    private Label pagetxt;
 
     /**
      * Initializes the controller class.
@@ -185,6 +193,18 @@ public class HomePageController implements Initializable {
         sql = "select  * from libraryitem where itemType = 'Book' LIMIT 24 offset 0";
         generateItems("Book", "images/4x/book_active.png", 0, sql);
 
+        //get the name of the school
+        try {
+            sql = "select nameSchool from admin where idAdmin = 1";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                nameSchool.setText(rs.getString("nameSchool"));
+            }
+        } catch (Exception e) {
+            //System.out.println("Database error");
+        }
 //        Hide the borrow book screen
         this.closeBorrowScreen();
 
@@ -193,6 +213,11 @@ public class HomePageController implements Initializable {
 
         //compute the total amount of each items per categories
         computeTotalItemsPerCategories();
+
+        //setTotal page for books
+        totalPage = Math.floorDiv(totalBook , 24)+1;
+        currentPage = 1;
+        pagetxt.setText(currentPage + " / " + totalPage);
 
         //init total items to books and search promptText
         currentItemType = "Book";
@@ -217,7 +242,7 @@ public class HomePageController implements Initializable {
                 totalBook = rs.getInt("totalBooks");
             }
         } catch (SQLException e) {
-            System.out.println("Database error");
+            //System.out.println("Database error");
         }
         //retrieve total Cds
         sql = "select COUNT(idLibItem) as totalCDs from libraryitem where itemType = 'CD'";
@@ -229,7 +254,7 @@ public class HomePageController implements Initializable {
                 totalCD = rs.getInt("totalCDs");
             }
         } catch (SQLException e) {
-            System.out.println("Database error");
+            //System.out.println("Database error");
         }
 
         //retrieve total research material
@@ -242,7 +267,7 @@ public class HomePageController implements Initializable {
                 totalRD = rs.getInt("totalRD");
             }
         } catch (SQLException e) {
-            System.out.println("Database error");
+            //System.out.println("Database error");
         }
     }
 
@@ -261,6 +286,7 @@ public class HomePageController implements Initializable {
     }
 
     void UncolorButtons() {
+        offsetQuery = 0;
         bookIcon.setImage(new Image("images/4x/books.png"));
         docIcon.setImage(new Image("images/4x/docs.png"));
         cdIcon.setImage(new Image("images/4x/cd.png"));
@@ -274,7 +300,6 @@ public class HomePageController implements Initializable {
         showRDBtn.setStyle("-fx-background-color:#fff;-fx-background-radius:45px;");
         showBooksBtn.setStyle("-fx-background-color:#fff;-fx-background-radius:45px;");
         showCDBtn.setStyle("-fx-background-color:#fff;-fx-background-radius:45px;");
-
     }
 
     void borrowItem(LibItem libItem) {
@@ -400,7 +425,7 @@ public class HomePageController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -430,15 +455,15 @@ public class HomePageController implements Initializable {
                 a.setContentText("");
                 a.show();
             } catch (SQLException e) {
-                System.out.println("Update stock error");
-                System.out.println(e.getMessage());
+                //System.out.println("Update stock error");
+                //System.out.println(e.getMessage());
             }
 
         }
     }
 
     void changePosition(LibItem libItem) {
-        System.out.println("We are changing the position");
+        //System.out.println("We are changing the position");
     }
 
     void deleteItem(LibItem libItem) {
@@ -481,7 +506,7 @@ public class HomePageController implements Initializable {
                         a.setContentText(libItem.itemType + " deleted !");
                         a.show();
                     } catch (SQLException e) {
-                        System.out.println("Database error");
+                        //System.out.println("Database error");
                     }
                 } else {
                     a.setAlertType(AlertType.INFORMATION);
@@ -489,7 +514,7 @@ public class HomePageController implements Initializable {
                     a.show();
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
             }
         } else {
             // ... user chose CANCEL or closed the dialog
@@ -512,6 +537,10 @@ public class HomePageController implements Initializable {
         currentItemIcon = "images/4x/book_active.png";
         totalItems.setText(totalBook + " Books");
         searchItemHome.setPromptText("Search a book...");
+
+        totalPage = Math.floorDiv(totalBook , 24)+1;
+        currentPage = 1;
+        pagetxt.setText(currentPage + " / " + totalPage);
     }
 
     @FXML
@@ -529,6 +558,10 @@ public class HomePageController implements Initializable {
         currentItemIcon = "images/4x/docs_active.png";
         totalItems.setText(totalRD + " RDs");
         searchItemHome.setPromptText("Search a research document...");
+
+        totalPage = Math.floorDiv(totalRD , 24)+1;
+        currentPage = 1;
+        pagetxt.setText(currentPage + " / " + totalPage);
     }
 
     @FXML
@@ -546,6 +579,10 @@ public class HomePageController implements Initializable {
         currentItemIcon = "images/4x/cd_active.png";
         totalItems.setText(totalCD + " CDs");
         searchItemHome.setPromptText("Search a CD...");
+
+        totalPage = Math.floorDiv(totalCD , 24)+1;
+        currentPage = 1;
+        pagetxt.setText(currentPage + " / " + totalPage);
     }
 
     @FXML
@@ -624,6 +661,54 @@ public class HomePageController implements Initializable {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showPreviousPage(MouseEvent event) {
+
+        if (offsetQuery >= 24) {
+            currentPage--;
+            offsetQuery = offsetQuery - 24;
+            pagetxt.setText(currentPage + " / " + totalPage);
+            sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset " + offsetQuery;
+            generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
+        }
+
+      
+    }
+
+    @FXML
+    private void showNextPage(MouseEvent event) {
+        boolean willExecute = false;
+
+        if (currentItemType.equals("Book")) {
+            if (totalBook > 24 && currentPage < totalPage) {
+                willExecute = true;
+                currentPage++;
+                System.out.println("offsetQuery " + offsetQuery);
+                System.out.println("totalBook " + totalBook);
+                offsetQuery = offsetQuery + 24;
+                pagetxt.setText(currentPage + " / " + totalPage);
+            }
+        } else if (currentItemType.equals("CD")) {
+            if (totalCD > 24 && currentPage < totalPage) {
+                willExecute = true;
+                currentPage++;
+                offsetQuery = offsetQuery + 24;
+                pagetxt.setText(currentPage + " / " + totalPage);
+            }
+        } else {
+            if (totalRD > 24 && currentPage < totalPage) {
+                willExecute = true;
+                currentPage++;
+                offsetQuery = offsetQuery + 24;
+                pagetxt.setText(currentPage + " / " + totalPage);
+            }
+        }
+        if(willExecute){
+            sql = "select  * from libraryitem where itemType = '" + currentItemType + "' LIMIT 24 offset " + offsetQuery;
+            generateItems(currentItemType, currentItemIcon, offsetQuery, sql);
         }
     }
 

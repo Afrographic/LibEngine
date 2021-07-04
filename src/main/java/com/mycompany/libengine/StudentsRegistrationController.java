@@ -85,7 +85,7 @@ public class StudentsRegistrationController implements Initializable {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
         // Setting the gender
@@ -116,10 +116,10 @@ public class StudentsRegistrationController implements Initializable {
 
             int departIndex = studentDepart.getSelectionModel().getSelectedIndex();
 
-            System.out.println(matricule);
-            System.out.println(gender);
+            //System.out.println(matricule);
+            //System.out.println(gender);
 
-            System.out.println(" Selected index " + departIndex);
+            //System.out.println(" Selected index " + departIndex);
 
             if (fullNameVal.length() < 2) {
                 // set alert type
@@ -172,7 +172,7 @@ public class StudentsRegistrationController implements Initializable {
                     // reset the field
                     this.resetField();
                 } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
                     a.setAlertType(AlertType.ERROR);
                     a.setContentText("Database error, please try again ");
                     a.show();

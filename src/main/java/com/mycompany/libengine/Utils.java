@@ -28,7 +28,7 @@ public class Utils {
                     capitalizeStr += firstLetter.toUpperCase() + remainingLetters + " ";
                 }
             }
-            System.out.println(capitalizeStr);
+            //System.out.println(capitalizeStr);
             return capitalizeStr;
         } else {
             // Capitalize first letter
